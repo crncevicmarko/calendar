@@ -1,0 +1,35 @@
+﻿<Window x:Class="Calendar.View.UsersWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Calendar.View"
+        mc:Ignorable="d"
+        Title="UsersWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Menu Grid.Row="0" 
+              VerticalAlignment="Top" 
+              Height="30">
+            <MenuItem Name="miAddStudent" Height="30" Header="Add user" Command="{Binding AddCommand}"></MenuItem>
+            <MenuItem Name="miUpdateStudent" Height="30" Header="Update user" CommandParameter="{Binding SelectedUser}" Command="{Binding UpdateCommand}"></MenuItem>
+            <MenuItem Name="miDeleteStudent" Height="30" Header="Delete user" CommandParameter="{Binding SelectedUser}" Command="{Binding DeleteCommand}"></MenuItem>
+            <Label Name="lblSearch" Content="Search:"></Label>
+            <TextBox Height="30" Width="150" Name="txtSearch" KeyUp="txtSearch_KeyUp" ></TextBox>
+        </Menu>
+
+        <DataGrid CanUserAddRows="False" 
+                  IsReadOnly="True" 
+                  ItemsSource="{Binding Users}"
+                  SelectedItem="{Binding SelectedUser}"
+                  Grid.Row="1" 
+                  Name="dgUsers" 
+                  Width="800" 
+                  Margin="0,0,-8,0"
+                 />
+    </Grid>
+</Window>

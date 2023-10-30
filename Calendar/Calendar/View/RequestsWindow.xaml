@@ -1,0 +1,27 @@
+﻿<Window x:Class="Calendar.View.RequestsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Calendar.View"
+        mc:Ignorable="d"
+        Title="RequestsWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <WrapPanel Grid.Row="0" HorizontalAlignment="Right">
+            <Button Command="{Binding ApproveCommand}" Content="Approve" Visibility="{Binding ApproveButtonVisibility}" Margin="5,5,5,5"></Button>
+            <Button Command="{Binding DeclineCommand}" Content="Decline" Visibility="{Binding DeclineButtonVisibility}" Margin="5,5,5,5"></Button>
+        </WrapPanel>
+        <DataGrid CanUserAddRows="False" 
+                  IsReadOnly="True"
+                  AutoGeneratingColumn="myDataGrid_AutoGeneratingColumn"
+                  Name="myDataGrid"
+                  ItemsSource="{Binding Requests}"
+                  SelectedItem="{Binding SelectedRequest}"
+                  Grid.Row="1">
+        </DataGrid>
+    </Grid>
+</Window>

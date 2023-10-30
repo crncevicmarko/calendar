@@ -1,0 +1,44 @@
+﻿<Window x:Class="Calendar.View.UserProfileWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Calendar.View"
+        mc:Ignorable="d"
+        Title="UserProfileWindow" Height="400" Width="600">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Content="First Name:" FontSize="20" Margin="5,5,5,5" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"></Label>
+        <TextBox Grid.Row="0" Grid.Column="1" Margin="5,5,5,5" Height="40" Width="300" HorizontalAlignment="Left" Text="{Binding FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <Label Grid.Row="1" Grid.Column="0" Content="Last Name:" FontSize="20" Margin="5,5,5,5" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"></Label>
+        <TextBox Grid.Row="1" Grid.Column="1" Margin="5,5,5,5" Height="40" Width="300" HorizontalAlignment="Left" Text="{Binding LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <Label Grid.Row="2" Grid.Column="0" Content="Email:" FontSize="20" Margin="5,5,5,5" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"></Label>
+        <TextBox Grid.Row="2" Grid.Column="1" Margin="5,5,5,5" Height="40" Width="300" HorizontalAlignment="Left" Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <Label Grid.Row="3" Grid.Column="0" Content="User Name:" FontSize="20" Margin="5,5,5,5" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"></Label>
+        <TextBox Grid.Row="3" Grid.Column="1" Margin="5,5,5,5" Height="40" Width="300" HorizontalAlignment="Left" Text="{Binding UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <Label Grid.Row="4" Grid.Column="0" Content="Password:" FontSize="20" Margin="5,5,5,5" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"></Label>
+        <TextBox Grid.Row="4" Grid.Column="1" Margin="5,5,5,5" Height="40" Width="300" HorizontalAlignment="Left" Text="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <Grid Grid.Row="5" Grid.Column="1" Width="400" Height="100" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,0,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" Content="Change" HorizontalAlignment="Left" Height="50" Visibility="{Binding UserProfileVisibility}" Command="{Binding ChangeCommand}" Width="150" Margin="5"></Button>
+            <Button Grid.Column="0" Content="Register" HorizontalAlignment="Left" Height="50" Visibility="{Binding RegistrationVisibility}" Command="{Binding RegisterCommand}" Width="150" Margin="5"/>
+            <Button Grid.Column="1" Content="Chancel" HorizontalAlignment="Left" Height="50" Command="{Binding CancelCommand}" Width="150"/>
+        </Grid>
+    </Grid>
+</Window>

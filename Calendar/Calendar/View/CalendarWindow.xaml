@@ -1,0 +1,70 @@
+﻿<Window x:Class="Calendar.View.CalendarWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Calendar.View"
+        mc:Ignorable="d"
+        Title="CalendarWindow" Height="500" Width="850">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0" Width="116">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Name="lblMonth" Content="{Binding LabelText}"></Label>
+                <Label Grid.Row="1" Content="Sunday" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom"></Label>
+            </Grid>
+            <Label Grid.Column="1" Content="Monday" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom"></Label>
+            <Label Grid.Column="2" Content="Tuesday" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom"></Label>
+            <Label Grid.Column="3" Content="Wednesday" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom"></Label>
+            <Label Grid.Column="4" Content="Thursday" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom"></Label>
+            <Label Grid.Column="5" Content="Friday" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom"></Label>
+            <Label Grid.Column="6" Content="Saturday" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom"></Label>
+        </Grid>
+        <!--<WrapPanel Grid.Row="1" Name="daycontainer" Width="850" Orientation="Horizontal">
+            <ItemsControl Width="850" Height="365" ItemsSource="{Binding Items}"></ItemsControl>
+        </WrapPanel>-->
+
+        <ItemsControl  Grid.Row="1" Width="850" ItemsSource="{Binding Items}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0" Content="Previous" Margin="5,5,5,5" Command="{Binding PreviousCommand}"></Button>
+                <Button Grid.Column="1" Content="Next" Margin="5,5,5,5" Command="{Binding NextCommand}"></Button>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
