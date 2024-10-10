@@ -40,14 +40,32 @@ To use this project:
    - Connect to your SQL Server instance.
    - Create a new database (e.g., `calendar`) if one does not already exist.
    - Configure the connection string in the project file `Config.cs` to connect to your SQL Server and the newly created database.
+5. **Run the Database Script**:
+   - Navigate to the `DataBaseSQL` folder in your cloned repository.
+   - Open the `Calendar.sql` file.
+   - Execute the SQL script by clicking on the "Execute" button in SSMS. This will create all the necessary tables and relationships needed for the application.
+6. **Build and Run the Project**:
+   - In Visual Studio, click on `Build` in the top menu and select `Build Solution`.
+   - Start debugging by pressing `F5` or clicking the `Start` button in Visual Studio.
+   - The application should launch, and you will see the **login screen**.
 
-5. **Build and run the project**:
-   - Click on Build in the top menu and select Build Solution.
-   - Start debugging by pressing F5 or clicking the Start button in Visual Studio.
-   - Log in as a user or admin to start managing calendars and meetings.
+### Logging In
 
-### Technologies Used
+To log in as an administrator, use the following credentials:
 
-- WPF (Windows Presentation Foundation)
-- .NET Framework (C#)
-- MSSQL (Microsoft SQL Server)
+- **Username**: `admin`
+- **Password**: `admin123`
+
+Once logged in, you can start managing calendars and meetings.
+
+### User Roles
+
+- **Admin**: Can manage all user accounts, approve or reject absence requests, and view all meetings.
+- **Employee**: Can manage their own calendar, submit absence requests, and schedule meetings.
+
+## Technologies Used
+
+- **WPF (Windows Presentation Foundation)**: For building the user interface.
+- **.NET Framework (C#)**: The programming framework used to develop the application.
+- **MSSQL (Microsoft SQL Server)**: The relational database used for data storage and management.
+- **SQL Server Management Studio (SSMS)**: Tool used for managing the database.
