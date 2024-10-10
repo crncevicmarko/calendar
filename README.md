@@ -26,8 +26,13 @@ This project is a desktop application developed for internal company use. It hel
 ### Usage
 
 To use this project:
-1. Clone the repository to your local machine.
-2. Open the solution in Visual Studio.
+1. **Download Visual Studio**:  
+   If you don't have Visual Studio installed, download it from the [Visual Studio Download Page](https://visualstudio.microsoft.com/downloads/).
+
+2. **Clone the repository**:  
+   Open a terminal or command prompt and run the following command:
+   ```bash
+   git clone https://github.com/crncevicmarko/calendar.git
 3. Set up the MSSQL database and configure the connection string in the project settings.
 4. Build the project and run the application.
 5. Log in as a user or admin to start managing calendars and meetings.
