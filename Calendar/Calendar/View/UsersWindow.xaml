@@ -19,7 +19,7 @@
             <MenuItem Name="miUpdateStudent" Height="30" Header="Update user" CommandParameter="{Binding SelectedUser}" Command="{Binding UpdateCommand}"></MenuItem>
             <MenuItem Name="miDeleteStudent" Height="30" Header="Delete user" CommandParameter="{Binding SelectedUser}" Command="{Binding DeleteCommand}"></MenuItem>
             <Label Name="lblSearch" Content="Search:"></Label>
-            <TextBox Height="30" Width="150" Name="txtSearch" KeyUp="txtSearch_KeyUp" ></TextBox>
+            <TextBox Height="30" Width="150" Name="txtSearch" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
         </Menu>
 
         <DataGrid CanUserAddRows="False" 

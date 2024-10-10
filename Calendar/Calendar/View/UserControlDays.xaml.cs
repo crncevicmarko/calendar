@@ -47,7 +47,8 @@ namespace Calendar.View
             foreach (var appointment in appointments)
             {
                 TextBlock textBlock = new TextBlock();
-                textBlock.Text = appointment.Title.ToString();
+                string time = appointment.StartOfTheAppointment.Hours.ToString("D2") + ":" + appointment.StartOfTheAppointment.Minutes.ToString("D2");
+                textBlock.Text = appointment.Title.ToUpper() + " - " + time;
                 stackPanel.Children.Add(textBlock);
             }
         }

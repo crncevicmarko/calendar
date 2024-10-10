@@ -33,3 +33,8 @@ create table Appointments(
 
 insert into Users (firstName, lastName, email, userName, password, isAdmin, isDeleted)
 values ('admin','admin','admin@gmail.com','admin','admin123',1,0)
+
+select * from Absences;
+select * from Users;
+select * from Appointments;
+UPDATE Absences SET isDeleted = 1, isApproved = 0 WHERE id = 1002;

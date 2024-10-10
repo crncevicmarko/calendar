@@ -25,10 +25,5 @@ namespace Calendar.View
             InitializeComponent();
             DataContext = new UsersWindowViewModel(this);
         }
-
-        private void txtSearch_KeyUp(object sender, KeyEventArgs e)
-        {
-
-        }
     }
 }

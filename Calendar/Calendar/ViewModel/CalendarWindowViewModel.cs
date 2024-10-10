@@ -48,28 +48,7 @@ namespace Calendar.ViewModel
             int dayoftheweek = Convert.ToInt32(startOfTheMonth.DayOfWeek.ToString("d"));
             //int dayoftheweek = (int)startOfTheMonth.DayOfWeek + 1;
 
-            for (int i = 0; i < dayoftheweek; i++)
-            {
-                UserControlBlanck userControlBlanck = new UserControlBlanck();
-                Items.Add(userControlBlanck);
-            }
-
-            for (int i = 1; i < days + 1; i++)
-            {
-                DateTime date = new DateTime(year, month, i);
-                UserControlDays userControlDays = new UserControlDays();
-                userControlDays.days(i);
-                if (Data.Instance.LoggedInUser != null && Data.Instance.LoggedInUser.IsAdmin)
-                {
-                    userControlDays.absences(absenceSevice.GetAllForDate(date));
-                }
-                if (Data.Instance.LoggedInUser != null && !Data.Instance.LoggedInUser.IsAdmin)
-                {
-                    userControlDays.absences(absenceSevice.GetAllByUserIdAndDate(Data.Instance.LoggedInUser.Id, date));
-                    userControlDays.appointments(appointmentService.GetAllForUserByDate(Data.Instance.LoggedInUser.Id, date));
-                }
-                Items.Add(userControlDays);
-            }
+            DisplayEvents(dayoftheweek, days);
         }
 
         private bool CanNextCommandExecute(object obj)
@@ -96,28 +75,7 @@ namespace Calendar.ViewModel
             int dayoftheweek = Convert.ToInt32(startOfTheMonth.DayOfWeek.ToString("d"));
             //int dayoftheweek = (int)startOfTheMonth.DayOfWeek + 1;
 
-            for (int i = 0; i < dayoftheweek; i++)
-            {
-                UserControlBlanck userControlBlanck = new UserControlBlanck();
-                Items.Add(userControlBlanck);
-            }
-
-            for (int i = 1; i < days + 1; i++)
-            {
-                DateTime date = new DateTime(year, month, i);
-                UserControlDays userControlDays = new UserControlDays();
-                userControlDays.days(i);
-                if (Data.Instance.LoggedInUser != null && Data.Instance.LoggedInUser.IsAdmin)
-                {
-                    userControlDays.absences(absenceSevice.GetAllForDate(date));
-                }
-                if (Data.Instance.LoggedInUser != null && !Data.Instance.LoggedInUser.IsAdmin)
-                {
-                    userControlDays.absences(absenceSevice.GetAllByUserIdAndDate(Data.Instance.LoggedInUser.Id, date));
-                    userControlDays.appointments(appointmentService.GetAllForUserByDate(Data.Instance.LoggedInUser.Id, date));
-                }
-                Items.Add(userControlDays);
-            }
+            DisplayEvents(dayoftheweek, days);
         }
 
         private bool CanPreviousCommandExecute(object obj)
@@ -144,6 +102,11 @@ namespace Calendar.ViewModel
             int dayoftheweek = Convert.ToInt32(startOfTheMonth.DayOfWeek.ToString("d"));
             //int dayoftheweek = (int)startOfTheMonth.DayOfWeek + 1;
 
+            DisplayEvents(dayoftheweek, days);
+        }
+
+        private void DisplayEvents(int dayoftheweek, int days)
+        {
             for (int i = 0; i < dayoftheweek; i++)
             {
                 UserControlBlanck userControlBlanck = new UserControlBlanck();

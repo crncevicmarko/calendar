@@ -66,7 +66,7 @@
                     <TextBlock Text=":" />
                     <ComboBox ItemsSource="{Binding Minutes}" SelectedItem="{Binding SelectedTime.EndMinutes}" />
                 </StackPanel>
-                <Button Grid.Row="4" Grid.Column="1" Content="Send" Command="{Binding SendAppointmentCommand}" Margin="5,5,5,5" ></Button>
+                <Button Grid.Row="4" Grid.Column="1" Content="Create" Command="{Binding SendAppointmentCommand}" Margin="5,5,5,5" ></Button>
             </Grid>
         </TabItem>
     </TabControl>

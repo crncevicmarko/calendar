@@ -16,6 +16,8 @@ namespace Calendar.ViewModel
     public class UsersWindowViewModel: ViewModelBase
     {
         public ObservableCollection<User> Users { get; set; }
+        private ObservableCollection<User> allUsers;
+        private string searchText;
 
         private IUserService userService = new UserService();
         public ICommand AddCommand { get; set; }
@@ -26,10 +28,36 @@ namespace Calendar.ViewModel
         public UsersWindowViewModel(Window window)
         {
             window1 = window;
-            Users = new ObservableCollection<User>(userService.GetAll().Where(p => !p.IsDeleted && !p.IsAdmin));
+            //Users = new ObservableCollection<User>(userService.GetAll().Where(p => !p.IsDeleted && !p.IsAdmin));
+            allUsers = new ObservableCollection<User>(userService.GetAll().Where(p => !p.IsDeleted && !p.IsAdmin));
+            Users = new ObservableCollection<User>(allUsers);
             AddCommand = new RelayCommand(AddCommandExecute, CanAddCommandExecute);
             UpdateCommand = new RelayCommand(UpdateCommandExecute, CanUpdateCommandExecute);
             DeleteCommand = new RelayCommand(DeleteCommandExecute, CanDeleteCommandExecute);
+        }
+
+        public string SearchText
+        {
+            get { return searchText; }
+            set
+            {
+                if (searchText != value)
+                {
+                    searchText = value;
+                    OnPropertyChanged(nameof(SearchText));
+                    SearchCommandExecute();
+                }
+            }
+        }
+        private void SearchCommandExecute()
+        {
+            Users = new ObservableCollection<User>(
+                allUsers.Where(p => p.FirstName.Contains(SearchText) ||
+                p.LastName.Contains(SearchText) ||
+                p.Email.Contains(SearchText) ||
+                p.UserName.Contains(SearchText))
+            );
+            OnPropertyChanged(nameof(Users));
         }
 
         public User SelectedUser

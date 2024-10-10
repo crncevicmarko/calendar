@@ -5,6 +5,7 @@ using Calendar.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -157,13 +158,29 @@ namespace Calendar.ViewModel
                 UserName = UserName,
                 Password = Password
             };
-            userService.Add(user);
-            this.window.Close();
-            if (isAddCommand1)
+            if (HasEmptyFields(user))
             {
-                var usersWindow = new UsersWindow();
-                usersWindow.ShowDialog();
+                MessageBox.Show("Sva polja moraju biti popunjena!");
             }
+            else
+            {
+                userService.Add(user);
+                this.window.Close();
+                if (isAddCommand1)
+                {
+                    var usersWindow = new UsersWindow();
+                    usersWindow.ShowDialog();
+                }
+            }
+        }
+
+        public bool HasEmptyFields(object obj)
+        {
+            return obj.GetType()
+                      .GetProperties(bindingAttr: BindingFlags.Public | BindingFlags.Instance)
+                      .Where(p => p.PropertyType == typeof(string))
+                      .Select(p => (string)p.GetValue(obj))
+                      .Any(value => string.IsNullOrEmpty(value));
         }
 
         public void SetVisibility(bool bolean)

@@ -38,7 +38,7 @@
 
             <Button Grid.Column="0" Content="Change" HorizontalAlignment="Left" Height="50" Visibility="{Binding UserProfileVisibility}" Command="{Binding ChangeCommand}" Width="150" Margin="5"></Button>
             <Button Grid.Column="0" Content="Register" HorizontalAlignment="Left" Height="50" Visibility="{Binding RegistrationVisibility}" Command="{Binding RegisterCommand}" Width="150" Margin="5"/>
-            <Button Grid.Column="1" Content="Chancel" HorizontalAlignment="Left" Height="50" Command="{Binding CancelCommand}" Width="150"/>
+            <Button Grid.Column="1" Content="Cancel" HorizontalAlignment="Left" Height="50" Command="{Binding CancelCommand}" Width="150"/>
         </Grid>
     </Grid>
 </Window>
