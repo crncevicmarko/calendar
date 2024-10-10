@@ -33,9 +33,18 @@ To use this project:
    Open a terminal or command prompt and run the following command:
    ```bash
    git clone https://github.com/crncevicmarko/calendar.git
-3. Set up the MSSQL database and configure the connection string in the project settings.
-4. Build the project and run the application.
-5. Log in as a user or admin to start managing calendars and meetings.
+3. **Open the solution in Visual Studio**:
+    Navigate to the cloned directory and open the `.sln` file in Visual Studio.
+4. **Set Up the MSSQL Database**:
+   - Open SQL Server Management Studio (SSMS).
+   - Connect to your SQL Server instance.
+   - Create a new database (e.g., `calendar`) if one does not already exist.
+   - Configure the connection string in the project file `Config.cs` to connect to your SQL Server and the newly created database.
+
+5. **Build and run the project**:
+   - Click on Build in the top menu and select Build Solution.
+   - Start debugging by pressing F5 or clicking the Start button in Visual Studio.
+   - Log in as a user or admin to start managing calendars and meetings.
 
 ### Technologies Used
 
