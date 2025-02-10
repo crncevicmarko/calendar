@@ -2,6 +2,7 @@
 using Calendar.Model;
 using Calendar.Service;
 using Calendar.View;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -40,6 +41,7 @@ namespace Calendar.ViewModel
             month = now.Month;
             year = now.Year;
             LabelText = DateTimeFormatInfo.CurrentInfo.GetMonthName(month) + " " + year;
+            Log.Information("Displaying days for {MonthName} {Year}", LabelText);
 
 
             DateTime startOfTheMonth = new DateTime(year, month, 1);
@@ -58,6 +60,7 @@ namespace Calendar.ViewModel
 
         private void NextCommandExecute(object obj)
         {
+            Log.Information("Navigating to next month.");
             Items.Clear();
             month++;
 
@@ -67,7 +70,7 @@ namespace Calendar.ViewModel
                 year++;
             }
             LabelText = DateTimeFormatInfo.CurrentInfo.GetMonthName(month) + " " + year;
-
+            Log.Information("Displaying days for {MonthName} {Year}", LabelText);
 
             DateTime startOfTheMonth = new DateTime(year, month, 1);
             int days = DateTime.DaysInMonth(year, month);
@@ -85,6 +88,7 @@ namespace Calendar.ViewModel
 
         private void PreviousCommandExecute(object obj)
         {
+            Log.Information("Navigating to previous month.");
             Items.Clear();
             month--;
 
@@ -92,9 +96,10 @@ namespace Calendar.ViewModel
             {
                 month = 12;
                 year--;
+                Log.Information("Year changed to {Year}.", year);
             }
             LabelText = DateTimeFormatInfo.CurrentInfo.GetMonthName(month) + " " + year;
-
+            Log.Information("Displaying days for {MonthName} {Year}", LabelText);
 
             DateTime startOfTheMonth = new DateTime(year, month, 1);
             int days = DateTime.DaysInMonth(year, month);
@@ -107,6 +112,7 @@ namespace Calendar.ViewModel
 
         private void DisplayEvents(int dayoftheweek, int days)
         {
+            Log.Information("Displaying events for {DayCount} days in month {Month} {Year}", days, month, year);
             for (int i = 0; i < dayoftheweek; i++)
             {
                 UserControlBlanck userControlBlanck = new UserControlBlanck();
@@ -118,14 +124,21 @@ namespace Calendar.ViewModel
                 DateTime date = new DateTime(year, month, i);
                 UserControlDays userControlDays = new UserControlDays();
                 userControlDays.days(i);
-                if (Data.Instance.LoggedInUser != null && Data.Instance.LoggedInUser.IsAdmin)
+                try
                 {
-                    userControlDays.absences(absenceSevice.GetAllForDate(date));
+                    if (Data.Instance.LoggedInUser != null && Data.Instance.LoggedInUser.IsAdmin)
+                    {
+                        userControlDays.absences(absenceSevice.GetAllForDate(date));
+                    }
+                    if (Data.Instance.LoggedInUser != null && !Data.Instance.LoggedInUser.IsAdmin)
+                    {
+                        userControlDays.absences(absenceSevice.GetAllByUserIdAndDate(Data.Instance.LoggedInUser.Id, date));
+                        userControlDays.appointments(appointmentService.GetAllForUserByDate(Data.Instance.LoggedInUser.Id, date));
+                    }
                 }
-                if (Data.Instance.LoggedInUser != null && !Data.Instance.LoggedInUser.IsAdmin)
+                catch (Exception ex)
                 {
-                    userControlDays.absences(absenceSevice.GetAllByUserIdAndDate(Data.Instance.LoggedInUser.Id, date));
-                    userControlDays.appointments(appointmentService.GetAllForUserByDate(Data.Instance.LoggedInUser.Id, date));
+                    Log.Warning("Failed to retrieve events for {Date}: {ExceptionMessage}", date, ex.Message);
                 }
                 Items.Add(userControlDays);
             }

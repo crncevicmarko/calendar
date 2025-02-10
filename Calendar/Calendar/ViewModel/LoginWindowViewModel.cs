@@ -2,6 +2,7 @@
 using Calendar.Model;
 using Calendar.Service;
 using Calendar.View;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,11 +48,22 @@ namespace Calendar.ViewModel
                     azazaz.Show();
                     loginWindow.Close();
                     mainWindow.Close();
+                    Log.Information("User: ID: {Id}, Firstname: {FirstName}, Lastname: {LastName}", user.Id, user.FirstName, user.LastName);
+
 
                 }
-                else { MessageBox.Show("Korisnik ne postoji"); }
+                else 
+                {
+                    Log.Warning("User tryed loggin with wrong credentials: Username: {UserName}, Password: {Password}", string.IsNullOrEmpty(LoginUserName) ? "EMPTY" : LoginUserName,
+                    string.IsNullOrEmpty(LoginPassword) ? "EMPTY" : LoginPassword);
+                    MessageBox.Show("Korisnik ne postoji");
+                }
             }
-            else { MessageBox.Show("Polja ne smeju da budu prazna");  }
+            else 
+            {
+                Log.Warning("User tried logging in without passing credentials");
+                MessageBox.Show("Polja ne smeju da budu prazna");  
+            }
         }
     }
 }

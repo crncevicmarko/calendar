@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\crnce\OneDrive\Desktop\Calendar\Calendar\obj\Debug\
+C:\Users\crnce\Desktop\Calendar\calendar\Calendar\Calendar\obj\Debug\
 Calendar
 none
 false
 DEBUG;TRACE
-C:\Users\crnce\OneDrive\Desktop\Calendar\Calendar\App.xaml
+C:\Users\crnce\Desktop\Calendar\calendar\Calendar\Calendar\App.xaml
 10-1575642990
 1-1468749271
 431979024580
-13-1310406943
+231193130026
 Component\BindablePasswordBox.xaml;MainWindow.xaml;View\CalendarWindow.xaml;View\FormWindow.xaml;View\LoginWindow.xaml;View\RequestsWindow.xaml;View\UserControlBlanck.xaml;View\UserControlDays.xaml;View\UserProfileWindow.xaml;View\UsersWindow.xaml;
 
-False
+True
 

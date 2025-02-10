@@ -2,6 +2,7 @@
 using Calendar.Model;
 using Calendar.Service;
 using Calendar.View;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -34,6 +35,8 @@ namespace Calendar.ViewModel
             AddCommand = new RelayCommand(AddCommandExecute, CanAddCommandExecute);
             UpdateCommand = new RelayCommand(UpdateCommandExecute, CanUpdateCommandExecute);
             DeleteCommand = new RelayCommand(DeleteCommandExecute, CanDeleteCommandExecute);
+
+            Log.Information("UsersWindowViewModel initialized.");
         }
 
         public string SearchText
@@ -51,6 +54,7 @@ namespace Calendar.ViewModel
         }
         private void SearchCommandExecute()
         {
+            Log.Information("Executing search with text: {SearchText}", SearchText);
             Users = new ObservableCollection<User>(
                 allUsers.Where(p => p.FirstName.Contains(SearchText) ||
                 p.LastName.Contains(SearchText) ||
@@ -82,6 +86,7 @@ namespace Calendar.ViewModel
         {
             if(SelectedUser != null)
             {
+                Log.Information("Deleting user with ID: {UserId}", SelectedUser.Id);
                 User selectedUser = SelectedUser;
                 userService.Delete(selectedUser.Id);
                 MessageBox.Show("Uspesno ste obrisali korisnika");
@@ -89,6 +94,7 @@ namespace Calendar.ViewModel
             }
             else
             {
+                Log.Warning("Delete attempted without a selected user.");
                 MessageBox.Show("Morate da selektujete korisnika");
             }
         }
@@ -102,11 +108,16 @@ namespace Calendar.ViewModel
         {
             if(SelectedUser != null)
             {
+                Log.Information("Updating user with ID: {UserId}", SelectedUser.Id);
                 var userProfile = new UserProfileWindow(true, SelectedUser, false);
                 this.window1.Close();
                 userProfile.ShowDialog();
             }
-            else { MessageBox.Show("Morate da selektujete korisnika"); }
+            else 
+            {
+                Log.Warning("Update attempted without a selected user.");
+                MessageBox.Show("Morate da selektujete korisnika"); 
+            }
         }
 
         private bool CanAddCommandExecute(object obj)
@@ -116,6 +127,7 @@ namespace Calendar.ViewModel
 
         private void AddCommandExecute(object obj)
         {
+            Log.Information("Adding a new user.");
             var userProfile = new UserProfileWindow(false, null, true);
             this.window1.Close();
             userProfile.ShowDialog();

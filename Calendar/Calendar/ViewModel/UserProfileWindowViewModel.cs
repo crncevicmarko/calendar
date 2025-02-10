@@ -2,6 +2,7 @@
 using Calendar.Model;
 using Calendar.Service;
 using Calendar.View;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,6 +46,7 @@ namespace Calendar.ViewModel
             CancelCommand = new RelayCommand(Cancel, CanCancel);
             SetVisibility(mode);
             LoadUserData(mode);
+            Log.Information("UserProfileWindowViewModel initialized.");
         }
 
         public string FirstName
@@ -56,6 +58,7 @@ namespace Calendar.ViewModel
                 {
                     firstName = value;
                     OnPropertyChanged(nameof(FirstName));
+                    Log.Information("First name set to {FirstName}.", firstName);
                 }
             }
         }
@@ -68,6 +71,7 @@ namespace Calendar.ViewModel
                 {
                     lastName = value;
                     OnPropertyChanged(nameof(LastName));
+                    Log.Information("Last name set to {LastName}.", lastName);
                 }
             }
         }
@@ -80,6 +84,7 @@ namespace Calendar.ViewModel
                 {
                     email = value;
                     OnPropertyChanged(nameof(Email));
+                    Log.Information("Email set to {Email}.", email);
                 }
             }
         }
@@ -92,6 +97,7 @@ namespace Calendar.ViewModel
                 {
                     userName = value;
                     OnPropertyChanged(nameof(UserName));
+                    Log.Information("User name set to {UserName}.", userName);
                 }
             }
         }
@@ -104,6 +110,7 @@ namespace Calendar.ViewModel
                 {
                     password = value;
                     OnPropertyChanged(nameof(password));
+                    Log.Information("Password set.");
                 }
             }
         }
@@ -124,6 +131,7 @@ namespace Calendar.ViewModel
                     Email = user.Email;
                     UserName = user.UserName;
                     Password = user.Password;
+                    Log.Information("User data loaded: {FirstName} {LastName}, {Email}, {UserName}.", FirstName, LastName, Email, UserName);
                 }
             }
         }
@@ -135,11 +143,13 @@ namespace Calendar.ViewModel
 
         private void Cancel(object obj)
         {
+            Log.Information("Cancel command triggered.");
             this.window.Close();
             if (user1 != null)
             {
                 var usersWindow = new UsersWindow();
                 usersWindow.ShowDialog();
+                Log.Information("Opened UsersWindow after cancel.");
             }
         }
 
@@ -160,16 +170,19 @@ namespace Calendar.ViewModel
             };
             if (HasEmptyFields(user))
             {
+                Log.Warning("Registration failed: fields are empty.");
                 MessageBox.Show("Sva polja moraju biti popunjena!");
             }
             else
             {
                 userService.Add(user);
+                Log.Information("User registered: {UserName}.", user.UserName);
                 this.window.Close();
                 if (isAddCommand1)
                 {
                     var usersWindow = new UsersWindow();
                     usersWindow.ShowDialog();
+                    Log.Information("Opened UsersWindow after registration.");
                 }
             }
         }
@@ -230,8 +243,13 @@ namespace Calendar.ViewModel
             if(user1 != null)
             {
                 userService.Update(user1.Id, user);
+                Log.Information("Updated user with ID {UserId}.", user1.Id);
             }
-            else { userService.Update(user.Id, user); }
+            else 
+            {
+                userService.Update(user.Id, user);
+                Log.Information("Updated user with ID {UserId}.", user.Id);
+            }
             Data.Instance.LoggedInUser = user;
             MessageBox.Show("Uspesno ste izmenili podatke");
         }

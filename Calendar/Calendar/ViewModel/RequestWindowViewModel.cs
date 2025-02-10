@@ -1,6 +1,7 @@
 ﻿using Calendar.Commands;
 using Calendar.Model;
 using Calendar.Service;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -67,6 +68,7 @@ namespace Calendar.ViewModel
                 //odkomentarisati za logovanje
                 //string userString = $"{DateTime.Now} {Data.Instance.LoggedInUser.FirstName} {Data.Instance.LoggedInUser.LastName} sent request for appointment";
                 //Log(userString);
+                Log.Information("{Timestamp} {UserName} sent request for appointment", DateTime.Now, $"{Data.Instance.LoggedInUser.FirstName} {Data.Instance.LoggedInUser.LastName}");
                 window1.Close();
             }
         }
@@ -93,6 +95,7 @@ namespace Calendar.ViewModel
                 //odkomentarisati za logovanje
                 //string userString = $"{DateTime.Now} {Data.Instance.LoggedInUser.FirstName} {Data.Instance.LoggedInUser.LastName} created absence";
                 //Log(userString);
+                Log.Information("{Timestamp} {UserName} created absence", DateTime.Now, $"{Data.Instance.LoggedInUser.FirstName} {Data.Instance.LoggedInUser.LastName}");
                 window1.Close();
             }
         }

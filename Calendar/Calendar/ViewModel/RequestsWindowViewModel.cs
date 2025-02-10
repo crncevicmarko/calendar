@@ -1,6 +1,7 @@
 ﻿using Calendar.Commands;
 using Calendar.Model;
 using Calendar.Service;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -34,6 +35,7 @@ namespace Calendar.ViewModel
         {
             approveButtonVisibility = Data.Instance.LoggedInUser.IsAdmin ? Visibility.Visible : Visibility.Collapsed;
             declineButtonVisibility = Data.Instance.LoggedInUser.IsAdmin ? Visibility.Visible : Visibility.Collapsed;
+            Log.Information($"Approve button visibility: {approveButtonVisibility}, Decline button visibility: {declineButtonVisibility}");
         }
 
         public Visibility ApproveButtonVisibility
@@ -68,6 +70,11 @@ namespace Calendar.ViewModel
                 {
                     Requests = new ObservableCollection<Absence>(absenceService.GetAll(false).Where(p => p.UserId == Data.Instance.LoggedInUser.Id));
                 }
+                Log.Information("Requests page refreshed successfully.");
+            }
+            else
+            {
+                Log.Warning("User is not logged in, unable to refresh page.");
             }
         }
 
@@ -100,10 +107,15 @@ namespace Calendar.ViewModel
                 //odkomentarisati za logovanje
                 //string userString = $"{DateTime.Now} {Data.Instance.LoggedInUser.FirstName} {Data.Instance.LoggedInUser.LastName} declined absence";
                 //Log(userString);
+                Log.Information($"Request declined: {absence.Id} by {Data.Instance.LoggedInUser.FirstName} {Data.Instance.LoggedInUser.LastName}");
                 MessageBox.Show("Uspesno ste izmenili zahtev");
                 Requests.Remove(SelectedRequest);
             }
-            else { MessageBox.Show("Morate da selektujete zahtev"); }
+            else 
+            {
+                Log.Warning("No request selected for decline.");
+                MessageBox.Show("Morate da selektujete zahtev"); 
+            }
         }
 
         private bool CanApproveCommandExecute(object obj)
@@ -122,9 +134,14 @@ namespace Calendar.ViewModel
                 //odkomentarisati za logovanje
                 //string userString = $"{DateTime.Now} {Data.Instance.LoggedInUser.FirstName} {Data.Instance.LoggedInUser.LastName} approved absence";
                 //Log(userString);
+                Log.Information($"Request approved: {absence.Id} by {Data.Instance.LoggedInUser.FirstName} {Data.Instance.LoggedInUser.LastName}");
                 Requests.Remove(SelectedRequest);
             }
-            else { MessageBox.Show("Morate da selektujete zahtev"); }
+            else 
+            {
+                Log.Warning("No request selected for approval.");
+                MessageBox.Show("Morate da selektujete zahtev"); 
+            }
         }
 
     }
