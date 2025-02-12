@@ -6,6 +6,7 @@ using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -39,7 +40,7 @@ namespace Calendar.ViewModel
             User user;
             if (LoginUserName != null && LoginPassword != null)
             {
-                user = userService.GetOneByUserNameAndPassword(LoginUserName, LoginPassword);
+                user = userService.GetOneByUserNameAndPassword(LoginUserName, HashPassword(LoginPassword));
                 if (user != null)
                 {
                     Data.Instance.LoggedInUser = user;
@@ -64,6 +65,14 @@ namespace Calendar.ViewModel
                 Log.Warning("User tried logging in without passing credentials");
                 MessageBox.Show("Polja ne smeju da budu prazna");  
             }
+        }
+
+        private string HashPassword(string password)
+        {
+            var hasher = new SHA256Managed();
+            var unhashed = System.Text.Encoding.Unicode.GetBytes(password);
+            var hashed = hasher.ComputeHash(unhashed);
+            return Convert.ToBase64String(hashed);
         }
     }
 }

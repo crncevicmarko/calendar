@@ -1,0 +1,58 @@
+2025-02-12 17:38:25.948 +01:00 [INF] UserProfileWindowViewModel initialized.
+2025-02-12 17:38:27.025 +01:00 [INF] First name set to n.
+2025-02-12 17:38:27.048 +01:00 [INF] First name set to n .
+2025-02-12 17:38:27.429 +01:00 [INF] First name set to n.
+2025-02-12 17:38:27.558 +01:00 [INF] First name set to .
+2025-02-12 17:38:28.633 +01:00 [INF] First name set to p.
+2025-02-12 17:38:28.727 +01:00 [INF] First name set to pe.
+2025-02-12 17:38:29.199 +01:00 [INF] First name set to pek.
+2025-02-12 17:38:29.425 +01:00 [INF] First name set to peki.
+2025-02-12 17:38:30.918 +01:00 [INF] Last name set to p.
+2025-02-12 17:38:32.151 +01:00 [INF] Last name set to pe.
+2025-02-12 17:38:32.261 +01:00 [INF] Last name set to pek.
+2025-02-12 17:38:32.440 +01:00 [INF] Last name set to peki.
+2025-02-12 17:38:33.915 +01:00 [INF] Last name set to pekic.
+2025-02-12 17:38:35.624 +01:00 [INF] Email set to e.
+2025-02-12 17:38:35.983 +01:00 [INF] Email set to .
+2025-02-12 17:38:36.305 +01:00 [INF] Email set to p.
+2025-02-12 17:38:36.398 +01:00 [INF] Email set to pe.
+2025-02-12 17:38:36.657 +01:00 [INF] Email set to pec.
+2025-02-12 17:38:36.768 +01:00 [INF] Email set to peci.
+2025-02-12 17:38:37.247 +01:00 [INF] Email set to pec.
+2025-02-12 17:38:37.352 +01:00 [INF] Email set to pe.
+2025-02-12 17:38:37.560 +01:00 [INF] Email set to pek.
+2025-02-12 17:38:38.124 +01:00 [INF] Email set to peki.
+2025-02-12 17:38:39.044 +01:00 [INF] Email set to peki@.
+2025-02-12 17:38:39.405 +01:00 [INF] Email set to peki@g.
+2025-02-12 17:38:39.646 +01:00 [INF] Email set to peki@ga.
+2025-02-12 17:38:39.720 +01:00 [INF] Email set to peki@gam.
+2025-02-12 17:38:39.865 +01:00 [INF] Email set to peki@gami.
+2025-02-12 17:38:40.088 +01:00 [INF] Email set to peki@gamil.
+2025-02-12 17:38:40.317 +01:00 [INF] Email set to peki@gamil..
+2025-02-12 17:38:40.564 +01:00 [INF] Email set to peki@gamil.c.
+2025-02-12 17:38:40.674 +01:00 [INF] Email set to peki@gamil.co.
+2025-02-12 17:38:40.827 +01:00 [INF] Email set to peki@gamil.com.
+2025-02-12 17:38:42.276 +01:00 [INF] User name set to p.
+2025-02-12 17:38:42.405 +01:00 [INF] User name set to pp.
+2025-02-12 17:38:42.503 +01:00 [INF] User name set to ppe.
+2025-02-12 17:38:43.065 +01:00 [INF] User name set to pp.
+2025-02-12 17:38:43.182 +01:00 [INF] User name set to p.
+2025-02-12 17:38:43.815 +01:00 [INF] User name set to .
+2025-02-12 17:38:44.038 +01:00 [INF] User name set to p.
+2025-02-12 17:38:44.138 +01:00 [INF] User name set to pe.
+2025-02-12 17:38:44.281 +01:00 [INF] User name set to per.
+2025-02-12 17:38:44.348 +01:00 [INF] User name set to peri.
+2025-02-12 17:38:44.705 +01:00 [INF] User name set to per.
+2025-02-12 17:38:44.826 +01:00 [INF] User name set to pe.
+2025-02-12 17:38:45.024 +01:00 [INF] User name set to pek.
+2025-02-12 17:38:45.253 +01:00 [INF] User name set to peki.
+2025-02-12 17:38:47.237 +01:00 [INF] Password set.
+2025-02-12 17:38:47.441 +01:00 [INF] Password set.
+2025-02-12 17:38:47.624 +01:00 [INF] Password set.
+2025-02-12 17:38:48.273 +01:00 [INF] Password set.
+2025-02-12 17:38:48.478 +01:00 [INF] Password set.
+2025-02-12 17:38:48.673 +01:00 [INF] Password set.
+2025-02-12 17:38:49.074 +01:00 [INF] Password set.
+2025-02-12 17:38:49.205 +01:00 [INF] Password set.
+2025-02-12 17:38:49.443 +01:00 [INF] Password set.
+2025-02-12 17:39:04.883 +01:00 [INF] User registered: peki.

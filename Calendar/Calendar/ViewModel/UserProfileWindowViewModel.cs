@@ -7,7 +7,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -130,7 +132,7 @@ namespace Calendar.ViewModel
                     LastName = user.LastName;
                     Email = user.Email;
                     UserName = user.UserName;
-                    Password = user.Password;
+                    Password = "";
                     Log.Information("User data loaded: {FirstName} {LastName}, {Email}, {UserName}.", FirstName, LastName, Email, UserName);
                 }
             }
@@ -162,11 +164,12 @@ namespace Calendar.ViewModel
         {
             User user = new User()
             {
-                FirstName = FirstName,
-                LastName = LastName,
-                Email = Email,
-                UserName = UserName,
-                Password = Password
+                FirstName = FirstName?.Trim(),
+                LastName = LastName?.Trim(),
+                Email = Email?.Trim(),
+                UserName = UserName?.Trim(),
+                Password = HashPassword(Password?.Trim())
+                //Password = Password
             };
             if (HasEmptyFields(user))
             {
@@ -185,6 +188,14 @@ namespace Calendar.ViewModel
                     Log.Information("Opened UsersWindow after registration.");
                 }
             }
+        }
+
+        private string HashPassword(string password)
+        {
+            var hasher = new SHA256Managed();
+            var unhashed = System.Text.Encoding.Unicode.GetBytes(password);
+            var hashed = hasher.ComputeHash(unhashed);
+            return Convert.ToBase64String(hashed);
         }
 
         public bool HasEmptyFields(object obj)
@@ -231,14 +242,20 @@ namespace Calendar.ViewModel
 
         private void Change(object obj)
         {
+            string newEmail = Email?.Trim();
+            if (!string.IsNullOrEmpty(newEmail) && !IsValidEmail(newEmail))
+            {
+                MessageBox.Show("Unesite ispravnu email adresu.");
+                return;
+            }
             User user = new User()
             {
                 Id = Data.Instance.LoggedInUser.Id,
-                FirstName = FirstName,
-                LastName = LastName,
-                Email = Email,
-                UserName = UserName,
-                Password = Password
+                FirstName = FirstName?.Trim(),
+                LastName = LastName?.Trim(),
+                Email = newEmail,
+                UserName = UserName?.Trim(),
+                Password = string.IsNullOrWhiteSpace(Password) ? Data.Instance.LoggedInUser.Password : HashPassword(Password) // Keep old password if unchanged
             };
             if(user1 != null)
             {
@@ -253,5 +270,14 @@ namespace Calendar.ViewModel
             Data.Instance.LoggedInUser = user;
             MessageBox.Show("Uspesno ste izmenili podatke");
         }
+        private bool IsValidEmail(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+                return false;
+
+            string pattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
+            return Regex.IsMatch(email, pattern);
+        }
+
     }
 }
