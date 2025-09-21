@@ -5,20 +5,38 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Calendar.View"
              mc:Ignorable="d" 
-             Width="120" Height="53">
-    <Border BorderBrush="Black" BorderThickness="1">
+             Width="120" Height="53"
+             PreviewMouseLeftButtonDown="UserControl_PreviewMouseLeftButtonDown"
+             MouseDoubleClick="UserControl_MouseDoubleClick">
+
+    <Border x:Name="RootBorder" BorderBrush="Black" BorderThickness="1">
+        <Border.Style>
+            <Style TargetType="Border">
+                <Setter Property="Background" Value="White"/>
+                <Setter Property="BorderBrush" Value="Black"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Style.Triggers>
+                    <!-- Binduj na UserControlDays.IsSelected -->
+                    <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type local:UserControlDays}}}" Value="True">
+                        <Setter Property="BorderBrush" Value="Blue"/>
+                        <Setter Property="BorderThickness" Value="3"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Border.Style>
+
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="21"></RowDefinition>
-                <RowDefinition></RowDefinition>
+                <RowDefinition Height="21"/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
+
             <Border BorderBrush="Black" BorderThickness="0,0,0,1">
-                <Label Grid.Row="0" Name="lblnum" Content="Text" PreviewMouseLeftButtonDown="lblnum_PreviewMouseLeftButtonDown" FontSize="10" Height="21"></Label>
+                <Label Grid.Row="0" Name="lblnum" Content="Text" FontSize="10" Height="21"/>
             </Border>
+
             <ScrollViewer Grid.Row="1" VerticalAlignment="Bottom" Height="Auto">
-                <StackPanel Width="Auto" Height="Auto" Name="stackPanel">
-                    
-                </StackPanel>
+                <StackPanel Width="Auto" Height="Auto" Name="stackPanel"/>
             </ScrollViewer>
         </Grid>
     </Border>

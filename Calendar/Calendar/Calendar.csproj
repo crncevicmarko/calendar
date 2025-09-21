@@ -105,6 +105,7 @@
     <Compile Include="Service\IAppointmentService.cs" />
     <Compile Include="Service\IUserService.cs" />
     <Compile Include="Service\UserService.cs" />
+    <Compile Include="ViewModel\DayWindowViewModel.cs" />
     <Compile Include="ViewModel\CalendarWindowViewModel.cs" />
     <Compile Include="ViewModel\LoginWindowViewModel.cs" />
     <Compile Include="ViewModel\RequestsWindowViewModel.cs" />
@@ -115,6 +116,9 @@
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="View\CalendarWindow.xaml.cs">
       <DependentUpon>CalendarWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\DayWindow.xaml.cs">
+      <DependentUpon>DayWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\FormWindow.xaml.cs">
       <DependentUpon>FormWindow.xaml</DependentUpon>
@@ -154,6 +158,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\CalendarWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\DayWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

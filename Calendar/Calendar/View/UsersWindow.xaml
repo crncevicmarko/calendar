@@ -15,21 +15,28 @@
         <Menu Grid.Row="0" 
               VerticalAlignment="Top" 
               Height="30">
-            <MenuItem Name="miAddStudent" Height="30" Header="Add user" Command="{Binding AddCommand}"></MenuItem>
-            <MenuItem Name="miUpdateStudent" Height="30" Header="Update user" CommandParameter="{Binding SelectedUser}" Command="{Binding UpdateCommand}"></MenuItem>
-            <MenuItem Name="miDeleteStudent" Height="30" Header="Delete user" CommandParameter="{Binding SelectedUser}" Command="{Binding DeleteCommand}"></MenuItem>
+            <MenuItem Name="miDeleteStudent" Height="30" Header="Block user" CommandParameter="{Binding SelectedUser}" Command="{Binding BlockCommand}"></MenuItem>
             <Label Name="lblSearch" Content="Search:"></Label>
             <TextBox Height="30" Width="150" Name="txtSearch" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
         </Menu>
 
         <DataGrid CanUserAddRows="False" 
-                  IsReadOnly="True" 
-                  ItemsSource="{Binding Users}"
-                  SelectedItem="{Binding SelectedUser}"
-                  Grid.Row="1" 
-                  Name="dgUsers" 
-                  Width="800" 
-                  Margin="0,0,-8,0"
-                 />
+          IsReadOnly="True" 
+          ItemsSource="{Binding Users}"
+          SelectedItem="{Binding SelectedUser}"
+          Grid.Row="1" 
+          Name="dgUsers" 
+          Width="800" 
+          Margin="0,0,-8,0"
+          AutoGenerateColumns="False">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}" />
+                <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}" />
+                <DataGridTextColumn Header="Email" Binding="{Binding Email}" />
+                <DataGridTextColumn Header="Username" Binding="{Binding UserName}" />
+            </DataGrid.Columns>
+        </DataGrid>
+
     </Grid>
 </Window>

@@ -123,3 +123,5 @@ C:\Users\crnce\Desktop\Calendar\calendar\Calendar\Calendar\bin\Debug\System.Runt
 C:\Users\crnce\Desktop\Calendar\calendar\Calendar\Calendar\bin\Debug\System.Threading.Channels.xml
 C:\Users\crnce\Desktop\Calendar\calendar\Calendar\Calendar\bin\Debug\System.Threading.Tasks.Extensions.xml
 C:\Users\crnce\Desktop\Calendar\calendar\Calendar\Calendar\obj\Debug\Calendar.csproj.CopyComplete
+C:\Users\crnce\Desktop\Calendar\calendar\Calendar\Calendar\obj\Debug\View\DayWindow.g.cs
+C:\Users\crnce\Desktop\Calendar\calendar\Calendar\Calendar\obj\Debug\View\DayWindow.baml

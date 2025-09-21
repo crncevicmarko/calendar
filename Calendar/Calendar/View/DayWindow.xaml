@@ -1,0 +1,70 @@
+﻿<Window x:Class="Calendar.View.DayWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Calendar.View"
+        mc:Ignorable="d"
+        Title="DayWindow" Height="640" Width="600">
+
+    <Grid>
+        <ItemsControl>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="45"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Vreme levo -->
+                        <TextBlock Text="{Binding}" 
+                                   VerticalAlignment="Center"
+                                   Margin="5,5,0,5"/>
+
+                        <!-- Linija desno -->
+                        <Border Grid.Column="1" 
+                                BorderBrush="LightGray" 
+                                BorderThickness="0,1,0,0" 
+                                VerticalAlignment="Center"/>
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+
+            <ItemsControl.ItemsSource>
+                <x:Array Type="sys:String" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+                    <sys:String>00:00</sys:String>
+                    <sys:String>01:00</sys:String>
+                    <sys:String>02:00</sys:String>
+                    <sys:String>03:00</sys:String>
+                    <sys:String>04:00</sys:String>
+                    <sys:String>05:00</sys:String>
+                    <sys:String>06:00</sys:String>
+                    <sys:String>07:00</sys:String>
+                    <sys:String>08:00</sys:String>
+                    <sys:String>09:00</sys:String>
+                    <sys:String>10:00</sys:String>
+                    <sys:String>11:00</sys:String>
+                    <sys:String>12:00</sys:String>
+                    <sys:String>13:00</sys:String>
+                    <sys:String>14:00</sys:String>
+                    <sys:String>15:00</sys:String>
+                    <sys:String>16:00</sys:String>
+                    <sys:String>17:00</sys:String>
+                    <sys:String>18:00</sys:String>
+                    <sys:String>19:00</sys:String>
+                    <sys:String>20:00</sys:String>
+                    <sys:String>21:00</sys:String>
+                    <sys:String>22:00</sys:String>
+                    <sys:String>23:00</sys:String>
+                </x:Array>
+            </ItemsControl.ItemsSource>
+        </ItemsControl>
+    </Grid>
+</Window>

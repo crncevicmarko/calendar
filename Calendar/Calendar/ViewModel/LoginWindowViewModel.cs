@@ -40,7 +40,8 @@ namespace Calendar.ViewModel
             User user;
             if (LoginUserName != null && LoginPassword != null)
             {
-                user = userService.GetOneByUserNameAndPassword(LoginUserName, HashPassword(LoginPassword));
+                //user = userService.GetOneByUserNameAndPassword(LoginUserName, HashPassword(LoginPassword));
+                user = userService.GetOneByUserNameAndPassword(LoginUserName, LoginPassword);
                 if (user != null)
                 {
                     Data.Instance.LoggedInUser = user;

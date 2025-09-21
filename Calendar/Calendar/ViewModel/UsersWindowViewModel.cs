@@ -21,9 +21,7 @@ namespace Calendar.ViewModel
         private string searchText;
 
         private IUserService userService = new UserService();
-        public ICommand AddCommand { get; set; }
-        public ICommand UpdateCommand { get; set; }
-        public ICommand DeleteCommand { get; set; }
+        public ICommand BlockCommand { get; set; }
         private User selectedUser;
         private Window window1;
         public UsersWindowViewModel(Window window)
@@ -32,11 +30,9 @@ namespace Calendar.ViewModel
             //Users = new ObservableCollection<User>(userService.GetAll().Where(p => !p.IsDeleted && !p.IsAdmin));
             allUsers = new ObservableCollection<User>(userService.GetAll().Where(p => !p.IsDeleted && !p.IsAdmin));
             Users = new ObservableCollection<User>(allUsers);
-            AddCommand = new RelayCommand(AddCommandExecute, CanAddCommandExecute);
-            UpdateCommand = new RelayCommand(UpdateCommandExecute, CanUpdateCommandExecute);
-            DeleteCommand = new RelayCommand(DeleteCommandExecute, CanDeleteCommandExecute);
+            BlockCommand = new RelayCommand(BlockCommandExecute, CanBlockCommandExecute);
 
-            Log.Information("UsersWindowViewModel initialized.");
+            //Log.Information("UsersWindowViewModel initialized.");
         }
 
         public string SearchText
@@ -54,7 +50,7 @@ namespace Calendar.ViewModel
         }
         private void SearchCommandExecute()
         {
-            Log.Information("Executing search with text: {SearchText}", SearchText);
+            //Log.Information("Executing search with text: {SearchText}", SearchText);
             Users = new ObservableCollection<User>(
                 allUsers.Where(p => p.FirstName.Contains(SearchText) ||
                 p.LastName.Contains(SearchText) ||
@@ -77,16 +73,16 @@ namespace Calendar.ViewModel
             }
         }
 
-        private bool CanDeleteCommandExecute(object obj)
+        private bool CanBlockCommandExecute(object obj)
         {
             return true;
         }
 
-        private void DeleteCommandExecute(object obj)
+        private void BlockCommandExecute(object obj)
         {
             if(SelectedUser != null)
             {
-                Log.Information("Deleting user with ID: {UserId}", SelectedUser.Id);
+                //Log.Information("Deleting user with ID: {UserId}", SelectedUser.Id);
                 User selectedUser = SelectedUser;
                 userService.Delete(selectedUser.Id);
                 MessageBox.Show("Uspesno ste obrisali korisnika");
@@ -94,43 +90,9 @@ namespace Calendar.ViewModel
             }
             else
             {
-                Log.Warning("Delete attempted without a selected user.");
+                //Log.Warning("Delete attempted without a selected user.");
                 MessageBox.Show("Morate da selektujete korisnika");
             }
-        }
-
-        private bool CanUpdateCommandExecute(object obj)
-        {
-            return true;
-        }
-
-        private void UpdateCommandExecute(object obj)
-        {
-            if(SelectedUser != null)
-            {
-                Log.Information("Updating user with ID: {UserId}", SelectedUser.Id);
-                var userProfile = new UserProfileWindow(true, SelectedUser, false);
-                this.window1.Close();
-                userProfile.ShowDialog();
-            }
-            else 
-            {
-                Log.Warning("Update attempted without a selected user.");
-                MessageBox.Show("Morate da selektujete korisnika"); 
-            }
-        }
-
-        private bool CanAddCommandExecute(object obj)
-        {
-            return true;
-        }
-
-        private void AddCommandExecute(object obj)
-        {
-            Log.Information("Adding a new user.");
-            var userProfile = new UserProfileWindow(false, null, true);
-            this.window1.Close();
-            userProfile.ShowDialog();
         }
     }
 }

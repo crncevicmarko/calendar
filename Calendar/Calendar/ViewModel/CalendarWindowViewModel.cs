@@ -22,6 +22,8 @@ namespace Calendar.ViewModel
         private string labelText;
         public ICommand PreviousCommand { get; set; }
         public ICommand NextCommand { get; set; }
+        public ICommand WeekCommand { get; set; }
+        public ICommand DayCommand { get; set; }
 
         private IAbsenceService absenceSevice = new AbsenceService();
         private IAppointmentService appointmentService = new AppointmentService();
@@ -33,6 +35,8 @@ namespace Calendar.ViewModel
             DisplayDays();
             PreviousCommand = new RelayCommand(PreviousCommandExecute, CanPreviousCommandExecute);
             NextCommand = new RelayCommand(NextCommandExecute, CanNextCommandExecute);
+            WeekCommand = new RelayCommand(WeekCommandExecute, CanWeekCommandExecute);
+            DayCommand = new RelayCommand(DayCommandExecute, CanDayCommandExecute);
         }
 
         private void DisplayDays()
@@ -110,6 +114,32 @@ namespace Calendar.ViewModel
             DisplayEvents(dayoftheweek, days);
         }
 
+        private bool CanDayCommandExecute(object obj)
+        {
+            return SelectedDay != null;
+        }
+
+        private void DayCommandExecute(object obj)
+        {
+            if (SelectedDay == null) return;
+            string yearAndMonth = LabelText;
+
+            var day = SelectedDay.lblnum;
+
+            var dayWindow = new DayWindow();
+            dayWindow.Show();
+        }
+
+        private bool CanWeekCommandExecute(object obj)
+        {
+            return true;
+        }
+
+        private void WeekCommandExecute(object obj)
+        {
+            Console.WriteLine("Usli u week command");
+        }
+
         private void DisplayEvents(int dayoftheweek, int days)
         {
             Log.Information("Displaying events for {DayCount} days in month {Month} {Year}", days, month, year);
@@ -169,6 +199,22 @@ namespace Calendar.ViewModel
                 }
             }
         }
+
+        private UserControlDays _selectedDay;
+        public UserControlDays SelectedDay
+        {
+            get => _selectedDay;
+            set
+            {
+                if (_selectedDay != value)
+                {
+                    _selectedDay = value;
+                    OnPropertyChanged(nameof(SelectedDay));
+                    ((RelayCommand)DayCommand).RaiseCanExecuteChanged();
+                }
+            }
+        }
+
 
     }
 }

@@ -1,0 +1,3 @@
+2025-09-22 00:00:27.407 +02:00 [INF] User: ID: 1, Firstname: pera, Lastname: peric
+2025-09-22 00:00:28.677 +02:00 [INF] Displaying days for September 2025 {Year}
+2025-09-22 00:00:28.680 +02:00 [INF] Displaying events for 30 days in month 9 2025

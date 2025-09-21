@@ -35,7 +35,21 @@
             <Label Grid.Column="3" Content="Wednesday" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom"></Label>
             <Label Grid.Column="4" Content="Thursday" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom"></Label>
             <Label Grid.Column="5" Content="Friday" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom"></Label>
-            <Label Grid.Column="6" Content="Saturday" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom"></Label>
+            <Grid Grid.Column="6" Width="116">
+                <Grid.RowDefinitions>
+                    <RowDefinition>
+                    </RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="1" Content="Day" Margin="5" Command="{Binding DayCommand}"></Button>
+                </Grid>
+                <Label Grid.Row="1" Content="Saturday" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom"></Label>
+            </Grid>
         </Grid>
         <!--<WrapPanel Grid.Row="1" Name="daycontainer" Width="850" Orientation="Horizontal">
             <ItemsControl Width="850" Height="365" ItemsSource="{Binding Items}"></ItemsControl>

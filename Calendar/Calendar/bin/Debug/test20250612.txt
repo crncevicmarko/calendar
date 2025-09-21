@@ -1,0 +1,92 @@
+2025-06-12 02:42:06.039 +02:00 [INF] User: ID: 2, Firstname: admin, Lastname: admin
+2025-06-12 02:42:12.439 +02:00 [INF] UsersWindowViewModel initialized.
+2025-06-12 02:42:34.034 +02:00 [INF] Deleting user with ID: 1002
+2025-06-12 02:42:43.938 +02:00 [INF] Executing search with text: p
+2025-06-12 02:42:44.053 +02:00 [INF] Executing search with text: pe
+2025-06-12 02:42:45.918 +02:00 [INF] Executing search with text: p
+2025-06-12 02:42:46.086 +02:00 [INF] Executing search with text: 
+2025-06-12 02:42:58.043 +02:00 [INF] UsersWindowViewModel initialized.
+2025-06-12 02:43:02.711 +02:00 [INF] Executing search with text: p
+2025-06-12 02:43:03.168 +02:00 [INF] Executing search with text: pe
+2025-06-12 02:43:04.638 +02:00 [INF] Executing search with text: p
+2025-06-12 02:43:04.798 +02:00 [INF] Executing search with text: 
+2025-06-12 02:43:05.951 +02:00 [INF] Executing search with text: p
+2025-06-12 02:43:06.516 +02:00 [INF] Executing search with text: pe
+2025-06-12 02:43:06.753 +02:00 [INF] Executing search with text: per
+2025-06-12 02:43:07.156 +02:00 [INF] Executing search with text: pe
+2025-06-12 02:43:07.331 +02:00 [INF] Executing search with text: p
+2025-06-12 02:43:07.473 +02:00 [INF] Executing search with text: 
+2025-06-12 02:43:07.989 +02:00 [INF] Executing search with text: ,
+2025-06-12 02:43:08.172 +02:00 [INF] Executing search with text: ,o
+2025-06-12 02:43:08.758 +02:00 [INF] Executing search with text: ,
+2025-06-12 02:43:08.908 +02:00 [INF] Executing search with text: 
+2025-06-12 02:43:09.455 +02:00 [INF] Executing search with text: m
+2025-06-12 02:43:09.600 +02:00 [INF] Executing search with text: mi
+2025-06-12 02:43:09.788 +02:00 [INF] Executing search with text: mik
+2025-06-12 02:43:10.333 +02:00 [INF] Executing search with text: mi
+2025-06-12 02:43:10.486 +02:00 [INF] Executing search with text: m
+2025-06-12 02:43:10.623 +02:00 [INF] Executing search with text: 
+2025-06-12 02:43:11.028 +02:00 [INF] Executing search with text: s
+2025-06-12 02:43:11.594 +02:00 [INF] Executing search with text: 
+2025-06-12 02:43:11.822 +02:00 [INF] Executing search with text: a
+2025-06-12 02:43:12.001 +02:00 [INF] Executing search with text: ad
+2025-06-12 02:43:13.068 +02:00 [INF] Executing search with text: a
+2025-06-12 02:43:13.213 +02:00 [INF] Executing search with text: 
+2025-06-12 02:43:14.626 +02:00 [INF] Executing search with text: m
+2025-06-12 02:43:14.754 +02:00 [INF] Executing search with text: mi
+2025-06-12 02:43:15.093 +02:00 [INF] Executing search with text: mik
+2025-06-12 02:43:15.280 +02:00 [INF] Executing search with text: mika
+2025-06-12 02:43:16.059 +02:00 [INF] Executing search with text: mik
+2025-06-12 02:43:16.240 +02:00 [INF] Executing search with text: mi
+2025-06-12 02:43:16.412 +02:00 [INF] Executing search with text: m
+2025-06-12 02:43:16.577 +02:00 [INF] Executing search with text: 
+2025-06-12 02:43:17.940 +02:00 [INF] Executing search with text: z
+2025-06-12 02:43:18.099 +02:00 [INF] Executing search with text: zi
+2025-06-12 02:43:18.781 +02:00 [INF] Executing search with text: zik
+2025-06-12 02:43:19.163 +02:00 [INF] Executing search with text: zi
+2025-06-12 02:43:19.317 +02:00 [INF] Executing search with text: z
+2025-06-12 02:43:19.478 +02:00 [INF] Executing search with text: 
+2025-06-12 02:43:23.282 +02:00 [INF] Updating user with ID: 1
+2025-06-12 02:43:23.299 +02:00 [INF] First name set to pera.
+2025-06-12 02:43:23.300 +02:00 [INF] Last name set to peric.
+2025-06-12 02:43:23.301 +02:00 [INF] Email set to pera@gmail.com.
+2025-06-12 02:43:23.301 +02:00 [INF] User name set to pera.
+2025-06-12 02:43:23.302 +02:00 [INF] Password set.
+2025-06-12 02:43:23.304 +02:00 [INF] User data loaded: pera peric, pera@gmail.com, pera.
+2025-06-12 02:43:23.304 +02:00 [INF] UserProfileWindowViewModel initialized.
+2025-06-12 02:43:27.906 +02:00 [INF] Cancel command triggered.
+2025-06-12 02:43:27.993 +02:00 [INF] UsersWindowViewModel initialized.
+2025-06-12 02:43:32.421 +02:00 [INF] Updating user with ID: 3
+2025-06-12 02:43:32.423 +02:00 [INF] First name set to mika.
+2025-06-12 02:43:32.423 +02:00 [INF] Last name set to mikic.
+2025-06-12 02:43:32.423 +02:00 [INF] Email set to mika@gmail.com.
+2025-06-12 02:43:32.423 +02:00 [INF] User name set to mika.
+2025-06-12 02:43:32.424 +02:00 [INF] Password set.
+2025-06-12 02:43:32.424 +02:00 [INF] User data loaded: mika mikic, mika@gmail.com, mika.
+2025-06-12 02:43:32.424 +02:00 [INF] UserProfileWindowViewModel initialized.
+2025-06-12 02:43:43.002 +02:00 [INF] Updated user with ID 3.
+2025-06-12 02:43:47.120 +02:00 [INF] Cancel command triggered.
+2025-06-12 02:43:47.195 +02:00 [INF] UsersWindowViewModel initialized.
+2025-06-12 02:44:00.950 +02:00 [INF] Updating user with ID: 3
+2025-06-12 02:44:00.957 +02:00 [INF] First name set to mika.
+2025-06-12 02:44:00.957 +02:00 [INF] Last name set to mikic.
+2025-06-12 02:44:00.957 +02:00 [INF] Email set to mika@gmail.com.
+2025-06-12 02:44:00.957 +02:00 [INF] User name set to mika.
+2025-06-12 02:44:00.957 +02:00 [INF] Password set.
+2025-06-12 02:44:00.957 +02:00 [INF] User data loaded: mika mikic, mika@gmail.com, mika.
+2025-06-12 02:44:00.957 +02:00 [INF] UserProfileWindowViewModel initialized.
+2025-06-12 02:44:03.490 +02:00 [INF] Password set.
+2025-06-12 02:44:03.825 +02:00 [INF] Password set.
+2025-06-12 02:44:04.464 +02:00 [INF] Password set.
+2025-06-12 02:44:04.555 +02:00 [INF] Password set.
+2025-06-12 02:44:04.763 +02:00 [INF] Password set.
+2025-06-12 02:44:05.023 +02:00 [INF] Password set.
+2025-06-12 02:44:05.753 +02:00 [INF] Password set.
+2025-06-12 02:44:05.886 +02:00 [INF] Password set.
+2025-06-12 02:44:06.127 +02:00 [INF] Password set.
+2025-06-12 02:44:07.217 +02:00 [INF] Updated user with ID 3.
+2025-06-12 02:44:10.123 +02:00 [INF] Cancel command triggered.
+2025-06-12 02:44:10.192 +02:00 [INF] UsersWindowViewModel initialized.
+2025-06-12 02:44:23.902 +02:00 [INF] Opened UsersWindow after cancel.
+2025-06-12 02:44:23.902 +02:00 [INF] Opened UsersWindow after cancel.
+2025-06-12 02:44:23.902 +02:00 [INF] Opened UsersWindow after cancel.

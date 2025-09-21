@@ -32,6 +32,15 @@ namespace Calendar.View
             lblnum.Content = number.ToString();
         }
 
+        public bool IsSelected
+        {
+            get { return (bool)GetValue(IsSelectedProperty); }
+            set { SetValue(IsSelectedProperty, value); }
+        }
+
+        public static readonly DependencyProperty IsSelectedProperty = DependencyProperty.Register("IsSelected", typeof(bool), typeof(UserControlDays), new PropertyMetadata(false));
+
+
         public void absences(ObservableCollection<Absence> absences)
         {
             foreach(var absence in absences)
@@ -53,7 +62,22 @@ namespace Calendar.View
             }
         }
 
-        private void lblnum_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void UserControl_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var parentWindow = Window.GetWindow(this) as CalendarWindow;
+            var vm = parentWindow.DataContext as CalendarWindowViewModel;
+
+            foreach (var child in FindVisualChildren<UserControlDays>(parentWindow))
+            {
+                child.IsSelected = false;
+            }
+
+            this.IsSelected = true;
+
+            vm.SelectedDay = this;
+        }
+
+        private void UserControl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (!Data.Instance.LoggedInUser.IsAdmin)
             {
@@ -62,5 +86,19 @@ namespace Calendar.View
             }
         }
 
+        private static IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
+        {
+            if (depObj != null)
+            {
+                for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
+                {
+                    var child = VisualTreeHelper.GetChild(depObj, i);
+                    if (child is T t) yield return t;
+
+                    foreach (var childOfChild in FindVisualChildren<T>(child))
+                        yield return childOfChild;
+                }
+            }
+        }
     }
 }
