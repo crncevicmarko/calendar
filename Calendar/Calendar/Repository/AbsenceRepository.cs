@@ -115,11 +115,15 @@ namespace Calendar.Repository
             using (SqlConnection conn = new SqlConnection(Config.CONNECTION_STRING))
             {
                 conn.Open();
-                string query = "SELECT * FROM Absences WHERE userId = @id AND isApproved = 1 AND @date BETWEEN startOfTheEvent AND endOfTheEvent";
+                string query = "SELECT * FROM Absences WHERE userId = @id AND isApproved = 1 AND startOfTheEvent < @dateEnd AND endOfTheEvent >= @dateStart";
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
+                    DateTime dayStart = date.Date;
+                    DateTime dayEnd = dayStart.AddDays(1);
+
                     cmd.Parameters.AddWithValue("@id", id);
-                    cmd.Parameters.AddWithValue("@date", date);
+                    cmd.Parameters.AddWithValue("@dateStart", dayStart);
+                    cmd.Parameters.AddWithValue("@dateEnd", dayEnd);
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {

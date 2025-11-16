@@ -1,0 +1,13 @@
+2025-11-16 14:37:41.576 +01:00 [INF] User: ID: 1, Firstname: pera, Lastname: peric
+2025-11-16 14:37:43.104 +01:00 [INF] Displaying days for November 2025 {Year}
+2025-11-16 14:37:43.108 +01:00 [INF] Displaying events for 30 days in month 11 2025
+2025-11-16 14:39:17.965 +01:00 [INF] User: ID: 1, Firstname: pera, Lastname: peric
+2025-11-16 14:39:19.388 +01:00 [INF] Displaying days for November 2025 {Year}
+2025-11-16 14:39:19.392 +01:00 [INF] Displaying events for 30 days in month 11 2025
+2025-11-16 14:40:03.764 +01:00 [INF] "2025-11-16T14:40:03.7623768+01:00" pera peric sent request for appointment
+2025-11-16 14:40:06.097 +01:00 [INF] Navigating to previous month.
+2025-11-16 14:40:06.109 +01:00 [INF] Displaying days for October 2025 {Year}
+2025-11-16 14:40:06.109 +01:00 [INF] Displaying events for 31 days in month 10 2025
+2025-11-16 14:40:07.440 +01:00 [INF] Navigating to next month.
+2025-11-16 14:40:07.459 +01:00 [INF] Displaying days for November 2025 {Year}
+2025-11-16 14:40:07.459 +01:00 [INF] Displaying events for 30 days in month 11 2025

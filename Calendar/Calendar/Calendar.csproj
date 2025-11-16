@@ -91,6 +91,7 @@
     <Compile Include="Model\Absence.cs" />
     <Compile Include="Model\Appointment.cs" />
     <Compile Include="Model\Data.cs" />
+    <Compile Include="Model\DayItem.cs" />
     <Compile Include="Model\ETypeOfEvent.cs" />
     <Compile Include="Model\Time.cs" />
     <Compile Include="Repository\AbsenceRepository.cs" />
@@ -114,12 +115,17 @@
     <Compile Include="ViewModel\UserProfileWindowViewModel.cs" />
     <Compile Include="ViewModel\UsersWindowViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
+    <Compile Include="View\AbsenceTypeToBrushConverter.cs" />
     <Compile Include="View\CalendarWindow.xaml.cs">
       <DependentUpon>CalendarWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\DayWindow.xaml.cs">
       <DependentUpon>DayWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\DurationToHeightConverter.cs" />
+    <Compile Include="View\LaneToLeftConverter.cs" />
+    <Compile Include="View\LaneToWidthConverter.cs" />
+    <Compile Include="View\StartTimeToTopConverter.cs" />
     <Compile Include="View\FormWindow.xaml.cs">
       <DependentUpon>FormWindow.xaml</DependentUpon>
     </Compile>

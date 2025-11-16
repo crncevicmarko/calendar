@@ -41,26 +41,91 @@ namespace Calendar.View
         public static readonly DependencyProperty IsSelectedProperty = DependencyProperty.Register("IsSelected", typeof(bool), typeof(UserControlDays), new PropertyMetadata(false));
 
 
-        public void absences(ObservableCollection<Absence> absences)
+        //public void absences(ObservableCollection<Absence> absences)
+        //{
+        //    foreach(var absence in absences)
+        //    {
+        //        TextBlock textBlock = new TextBlock();
+        //        textBlock.Text = absence.User.FirstName.ToUpper() + ": " + absence.Event.ToString();
+        //        stackPanel.Children.Add(textBlock);
+        //    }
+        //}
+
+        //public void appointments(ObservableCollection<Appointment> appointments)
+        //{
+        //    foreach (var appointment in appointments)
+        //    {
+        //        TextBlock textBlock = new TextBlock();
+        //        string time = appointment.StartOfTheAppointment.Hours.ToString("D2") + ":" + appointment.StartOfTheAppointment.Minutes.ToString("D2");
+        //        textBlock.Text = appointment.Title.ToUpper() + " - " + time;
+        //        stackPanel.Children.Add(textBlock);
+        //    }
+        //}
+
+        public void absences(IEnumerable<DayItem> absences)
         {
-            foreach(var absence in absences)
+            stackPanel.Children.Clear();
+
+            foreach (var a in absences)
             {
-                TextBlock textBlock = new TextBlock();
-                textBlock.Text = absence.User.FirstName.ToUpper() + ": " + absence.Event.ToString();
-                stackPanel.Children.Add(textBlock);
+                Border border = new Border
+                {
+                    CornerRadius = new CornerRadius(3),
+                    Padding = new Thickness(2),
+                    Margin = new Thickness(1),
+                    Background = GetBrushForAbsence(a.AbsenceType)
+                };
+
+                TextBlock text = new TextBlock
+                {
+                    Text = a.Title,
+                    FontSize = 9,
+                    TextWrapping = TextWrapping.Wrap
+                };
+
+                border.Child = text;
+                stackPanel.Children.Add(border);
             }
         }
 
-        public void appointments(ObservableCollection<Appointment> appointments)
+        public void appointments(IEnumerable<DayItem> appointments)
         {
-            foreach (var appointment in appointments)
+            foreach (var a in appointments)
             {
-                TextBlock textBlock = new TextBlock();
-                string time = appointment.StartOfTheAppointment.Hours.ToString("D2") + ":" + appointment.StartOfTheAppointment.Minutes.ToString("D2");
-                textBlock.Text = appointment.Title.ToUpper() + " - " + time;
-                stackPanel.Children.Add(textBlock);
+                Border border = new Border
+                {
+                    CornerRadius = new CornerRadius(3),
+                    Padding = new Thickness(2),
+                    Margin = new Thickness(1),
+                    Background = Brushes.LightBlue
+                };
+
+                TextBlock text = new TextBlock
+                {
+                    Text = a.Title,
+                    FontSize = 9,
+                    TextWrapping = TextWrapping.Wrap
+                };
+
+                border.Child = text;
+                stackPanel.Children.Add(border);
             }
         }
+
+
+        private Brush GetBrushForAbsence(string type)
+        {
+            switch (type)
+            {
+                case "BOLOVANJE": return Brushes.LightPink;
+                case "GODISNJI_ODMOR": return Brushes.LightGreen;
+                case "VERSKI_PRAZNIK": return Brushes.LightYellow;
+                case "SLOBODAN_DAN": return Brushes.LightBlue;
+                case "OSTALO": return Brushes.LightGray;
+                default: return Brushes.LightGray;
+            }
+        }
+
 
         private void UserControl_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {

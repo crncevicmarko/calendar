@@ -20,10 +20,10 @@ namespace Calendar.View
     /// </summary>
     public partial class DayWindow : Window
     {
-        public DayWindow()
+        public DayWindow(string yearAndMonth, string day)
         {
             InitializeComponent();
-            DataContext = new DayWindowViewModel();
+            DataContext = new DayWindowViewModel(yearAndMonth, day);
         }
     }
 }

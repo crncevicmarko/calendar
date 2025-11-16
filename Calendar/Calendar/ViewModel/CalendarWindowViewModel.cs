@@ -124,10 +124,12 @@ namespace Calendar.ViewModel
             if (SelectedDay == null) return;
             string yearAndMonth = LabelText;
 
-            var day = SelectedDay.lblnum;
+            // lblnum is Label, and Content is object
+            var day = SelectedDay.lblnum.Content.ToString();
 
-            var dayWindow = new DayWindow();
+            var dayWindow = new DayWindow(yearAndMonth, day);
             dayWindow.Show();
+
         }
 
         private bool CanWeekCommandExecute(object obj)
@@ -143,36 +145,70 @@ namespace Calendar.ViewModel
         private void DisplayEvents(int dayoftheweek, int days)
         {
             Log.Information("Displaying events for {DayCount} days in month {Month} {Year}", days, month, year);
+
             for (int i = 0; i < dayoftheweek; i++)
             {
                 UserControlBlanck userControlBlanck = new UserControlBlanck();
                 Items.Add(userControlBlanck);
             }
 
-            for (int i = 1; i < days + 1; i++)
+            for (int i = 1; i <= days; i++)
             {
                 DateTime date = new DateTime(year, month, i);
                 UserControlDays userControlDays = new UserControlDays();
                 userControlDays.days(i);
+
                 try
                 {
-                    if (Data.Instance.LoggedInUser != null && Data.Instance.LoggedInUser.IsAdmin)
+                    IEnumerable<DayItem> dayAbsences = new List<DayItem>();
+                    IEnumerable<DayItem> dayAppointments = new List<DayItem>();
+
+                    if (Data.Instance.LoggedInUser != null)
                     {
-                        userControlDays.absences(absenceSevice.GetAllForDate(date));
+                        if (Data.Instance.LoggedInUser.IsAdmin)
+                        {
+                            dayAbsences = absenceSevice.GetAllForDate(date)
+                                .Select(a => new DayItem
+                                {
+                                    Title = $"{a.User.FirstName}: {a.Event}",
+                                    Start = a.StartOfTheEvent,
+                                    End = a.EndOfTheEvent,
+                                    AbsenceType = a.Event.ToString()
+                                });
+                        }
+                        else
+                        {
+                            dayAbsences = absenceSevice.GetAllByUserIdAndDate(Data.Instance.LoggedInUser.Id, date)
+                                .Select(a => new DayItem
+                                {
+                                    Title = $"{a.User.FirstName}: {a.Event}",
+                                    Start = a.StartOfTheEvent,
+                                    End = a.EndOfTheEvent,
+                                    AbsenceType = a.Event.ToString()
+                                });
+
+                            dayAppointments = appointmentService.GetAllForUserByDate(Data.Instance.LoggedInUser.Id, date)
+                                .Select(a => new DayItem
+                                {
+                                    Title = a.Title,
+                                    Start = date + a.StartOfTheAppointment,
+                                    End = date + a.EndOfTheAppointment
+                                });
+                        }
                     }
-                    if (Data.Instance.LoggedInUser != null && !Data.Instance.LoggedInUser.IsAdmin)
-                    {
-                        userControlDays.absences(absenceSevice.GetAllByUserIdAndDate(Data.Instance.LoggedInUser.Id, date));
-                        userControlDays.appointments(appointmentService.GetAllForUserByDate(Data.Instance.LoggedInUser.Id, date));
-                    }
+
+                    userControlDays.absences(dayAbsences);
+                    userControlDays.appointments(dayAppointments);
                 }
                 catch (Exception ex)
                 {
                     Log.Warning("Failed to retrieve events for {Date}: {ExceptionMessage}", date, ex.Message);
                 }
+
                 Items.Add(userControlDays);
             }
         }
+
 
         public ObservableCollection<UserControl> Items
         {
