@@ -75,5 +75,7 @@ namespace Calendar.ViewModel
             var hashed = hasher.ComputeHash(unhashed);
             return Convert.ToBase64String(hashed);
         }
+        
+
     }
 }

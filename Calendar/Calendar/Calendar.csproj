@@ -122,6 +122,7 @@
     <Compile Include="View\DayWindow.xaml.cs">
       <DependentUpon>DayWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\DivideBySevenConverter.cs" />
     <Compile Include="View\DurationToHeightConverter.cs" />
     <Compile Include="View\LaneToLeftConverter.cs" />
     <Compile Include="View\LaneToWidthConverter.cs" />

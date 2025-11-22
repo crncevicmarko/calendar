@@ -3,71 +3,184 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Calendar.View"
         mc:Ignorable="d"
-        Title="FormWindow" Height="230" Width="300">
-    <TabControl>
+        Title="FormWindow" Height="300" Width="340"
+        Background="#f4f6fa">
+
+    <Window.Resources>
+        <!-- Card style -->
+        <Style x:Key="CardStyle" TargetType="Border">
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="BorderBrush" Value="#D0D6E0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="12"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Margin" Value="8"/>
+        </Style>
+
+        <!-- Label style -->
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Foreground" Value="#444"/>
+            <Setter Property="Margin" Value="0,4,0,4"/>
+        </Style>
+
+        <!-- Input style -->
+        <Style TargetType="ComboBox">
+            <Setter Property="Margin" Value="0,4,0,4"/>
+            <Setter Property="Padding" Value="4"/>
+        </Style>
+
+        <Style TargetType="DatePicker">
+            <Setter Property="Margin" Value="0,4,0,4"/>
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="0,4,0,4"/>
+            <Setter Property="Padding" Value="4"/>
+        </Style>
+
+        <!-- Button style -->
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="0,10,0,0"/>
+            <Setter Property="Padding" Value="6"/>
+            <Setter Property="Background" Value="#3A74F2"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="BorderBrush" Value="#2F5FCC"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+
+        <Style TargetType="Button" x:Key="RoundedButton">
+            <Setter Property="Background" Value="#3A74F2"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Padding" Value="6,4"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border 
+                    x:Name="border"
+                    Background="{TemplateBinding Background}"
+                    CornerRadius="5"
+                    Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <!-- Hover -->
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#5C8CFF"/>
+                            </Trigger>
+
+                            <!-- Pressed -->
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#2F5FCC"/>
+                            </Trigger>
+
+                            <!-- Disabled -->
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="border" Property="Background" Value="#999"/>
+                                <Setter Property="Foreground" Value="#EEE"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+    </Window.Resources>
+
+    <TabControl Margin="10">
+        <!-- ABSENCE TAB -->
         <TabItem Header="Absence">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="91.706"></ColumnDefinition>
-                    <ColumnDefinition Width="8.294"/>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
+            <Border Style="{StaticResource CardStyle}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="110"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
 
-                <Label Grid.Row="0" Grid.Column="0" Content="Event:" FontSize="10" HorizontalAlignment="Left" VerticalContentAlignment="Center" Grid.ColumnSpan="2" Margin="64,0,0,46" Grid.RowSpan="2"></Label>
-                <ComboBox Grid.Row="0" Grid.Column="2" Text="{Binding Absence.Event}" Margin="5,5,5,5">
-                    <ComboBoxItem>BOLOVANJE</ComboBoxItem>
-                    <ComboBoxItem>GODISNJI_ODMOR</ComboBoxItem>
-                    <ComboBoxItem>VERSKI_PRAZNIK</ComboBoxItem>
-                    <ComboBoxItem>SLOBODAN_DAN</ComboBoxItem>
-                    <ComboBoxItem>OSTALO</ComboBoxItem>
-                </ComboBox>
-                <Label Grid.Row="1" Grid.Column="0" Content="Start Of The Event:" FontSize="10" HorizontalAlignment="Left" VerticalContentAlignment="Center" Grid.ColumnSpan="2" Margin="8,0,0,0"></Label>
-                <DatePicker Grid.Row="1" Grid.Column="2" SelectedDate="{Binding Absence.StartOfTheEvent}" Margin="5,5,5,5" ></DatePicker>
-                <Label Grid.Row="1" Grid.Column="0" Content="End Of The Event:" FontSize="10" HorizontalAlignment="Left" VerticalContentAlignment="Center" Grid.ColumnSpan="2" Margin="12,46,0,46" Grid.RowSpan="3"></Label>
-                <DatePicker Grid.Row="2" Grid.Column="2" SelectedDate="{Binding Absence.EndOfTheEvent}" Margin="5,5,5,5" ></DatePicker>
-                <Button Grid.Row="3" Grid.Column="2" Command="{Binding SendAbsenceCommand}" Content="Send" Margin="5,5,5,5"></Button>
-            </Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Content="Event:"/>
+                    <ComboBox Grid.Row="0" Grid.Column="1" 
+                              Text="{Binding Absence.Event}">
+                        <ComboBoxItem>BOLOVANJE</ComboBoxItem>
+                        <ComboBoxItem>GODISNJI_ODMOR</ComboBoxItem>
+                        <ComboBoxItem>VERSKI_PRAZNIK</ComboBoxItem>
+                        <ComboBoxItem>SLOBODAN_DAN</ComboBoxItem>
+                        <ComboBoxItem>OSTALO</ComboBoxItem>
+                    </ComboBox>
+
+                    <Label Grid.Row="1" Grid.Column="0" Content="Start of event:"/>
+                    <DatePicker Grid.Row="1" Grid.Column="1" 
+                                SelectedDate="{Binding Absence.StartOfTheEvent}" />
+
+                    <Label Grid.Row="2" Grid.Column="0" Content="End of event:"/>
+                    <DatePicker Grid.Row="2" Grid.Column="1" 
+                                SelectedDate="{Binding Absence.EndOfTheEvent}"/>
+
+                    <Button Grid.Row="3" Grid.Column="1" Margin="0,10,0,0"
+                            Content="Send" 
+                            Command="{Binding SendAbsenceCommand}"  Style="{StaticResource RoundedButton}"/>
+                </Grid>
+            </Border>
         </TabItem>
+
+        <!-- APPOINTMENT TAB -->
         <TabItem Header="Appointment">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100"></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
+            <Border Style="{StaticResource CardStyle}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="110"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
 
-                <Label Grid.Row="0" Grid.Column="0" Content="Title:"  FontSize="10" HorizontalAlignment="Right" VerticalContentAlignment="Center"></Label>
-                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Appointment.Title}" Margin="5,5,5,5"></TextBox>
-                <Label Grid.Row="1" Grid.Column="0" Content="Date:" FontSize="10" HorizontalAlignment="Right" VerticalContentAlignment="Center"></Label>
-                <DatePicker Grid.Row="1" Grid.Column="1" SelectedDate="{Binding Appointment.Date}" Margin="5,5,5,5" ></DatePicker>
-                <Label Grid.Row="2" Grid.Column="0" Content="Start:" FontSize="10" HorizontalAlignment="Right" VerticalContentAlignment="Center"></Label>
-                <StackPanel Grid.Row="2" Grid.Column="1" Margin="5,5,5,5" Orientation="Horizontal">
-                    <ComboBox ItemsSource="{Binding Hours}" SelectedItem="{Binding SelectedTime.StartHours}" />
-                    <TextBlock Text=":" />
-                    <ComboBox ItemsSource="{Binding Minutes}" SelectedItem="{Binding SelectedTime.StartMinutes}" />
-                </StackPanel>
-                <Label Grid.Row="3" Grid.Column="0" Content="End:" FontSize="10" HorizontalAlignment="Right" VerticalContentAlignment="Center"></Label>
-                <StackPanel Grid.Row="3" Grid.Column="1" Margin="5,5,5,5" Orientation="Horizontal">
-                    <ComboBox ItemsSource="{Binding Hours}" SelectedItem="{Binding SelectedTime.EndHours}" />
-                    <TextBlock Text=":" />
-                    <ComboBox ItemsSource="{Binding Minutes}" SelectedItem="{Binding SelectedTime.EndMinutes}" />
-                </StackPanel>
-                <Button Grid.Row="4" Grid.Column="1" Content="Create" Command="{Binding SendAppointmentCommand}" Margin="5,5,5,5" ></Button>
-            </Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Content="Title:"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Appointment.Title}"/>
+
+                    <Label Grid.Row="1" Grid.Column="0" Content="Date:"/>
+                    <DatePicker Grid.Row="1" Grid.Column="1" SelectedDate="{Binding Appointment.Date}"/>
+
+                    <Label Grid.Row="2" Grid.Column="0" Content="Start:"/>
+                    <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Margin="0,4">
+                        <ComboBox ItemsSource="{Binding Hours}" SelectedItem="{Binding SelectedTime.StartHours}" Width="60"/>
+                        <TextBlock Text=":" VerticalAlignment="Center" Margin="4,0"/>
+                        <ComboBox ItemsSource="{Binding Minutes}" SelectedItem="{Binding SelectedTime.StartMinutes}" Width="60"/>
+                    </StackPanel>
+
+                    <Label Grid.Row="3" Grid.Column="0" Content="End:"/>
+                    <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" Margin="0,4">
+                        <ComboBox ItemsSource="{Binding Hours}" SelectedItem="{Binding SelectedTime.EndHours}" Width="60"/>
+                        <TextBlock Text=":" VerticalAlignment="Center" Margin="4,0"/>
+                        <ComboBox ItemsSource="{Binding Minutes}" SelectedItem="{Binding SelectedTime.EndMinutes}" Width="60"/>
+                    </StackPanel>
+
+                    <Button Grid.Row="4" Grid.Column="1" 
+                            Content="Create" 
+                            Command="{Binding SendAppointmentCommand}"  Style="{StaticResource RoundedButton}"/>
+                </Grid>
+            </Border>
         </TabItem>
+
     </TabControl>
 </Window>

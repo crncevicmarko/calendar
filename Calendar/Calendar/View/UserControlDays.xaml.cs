@@ -120,7 +120,7 @@ namespace Calendar.View
                 case "BOLOVANJE": return Brushes.LightPink;
                 case "GODISNJI_ODMOR": return Brushes.LightGreen;
                 case "VERSKI_PRAZNIK": return Brushes.LightYellow;
-                case "SLOBODAN_DAN": return Brushes.LightBlue;
+                case "SLOBODAN_DAN": return Brushes.LightSalmon;
                 case "OSTALO": return Brushes.LightGray;
                 default: return Brushes.LightGray;
             }

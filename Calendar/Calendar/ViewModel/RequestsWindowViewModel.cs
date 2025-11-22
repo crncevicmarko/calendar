@@ -13,136 +13,85 @@ using System.Windows.Input;
 
 namespace Calendar.ViewModel
 {
-    public class RequestsWindowViewModel: ViewModelBase
+    public class RequestsWindowViewModel : ViewModelBase
     {
-        public ObservableCollection<Absence> Requests { get; set; }
-
         private IAbsenceService absenceService = new AbsenceService();
+
+        public ObservableCollection<Absence> PendingRequests { get; set; }
+        public ObservableCollection<Absence> DeclinedRequests { get; set; }
+
         public ICommand ApproveCommand { get; set; }
         public ICommand DeclineCommand { get; set; }
-        private Absence selectedAbsence;
-        private Visibility approveButtonVisibility = Visibility.Visible;
-        private Visibility declineButtonVisibility = Visibility.Visible;
+
+        private Absence selectedRequest;
+
+        // Visibility properties
+        public Visibility AdminGridVisibility => Data.Instance.LoggedInUser.IsAdmin ? Visibility.Visible : Visibility.Collapsed;
+        public Visibility UserGridsVisibility => !Data.Instance.LoggedInUser.IsAdmin ? Visibility.Visible : Visibility.Collapsed;
+        public Visibility AdminButtonsVisibility => Data.Instance.LoggedInUser.IsAdmin ? Visibility.Visible : Visibility.Collapsed;
 
         public RequestsWindowViewModel(Window window)
         {
-            RefreshPage();
-            SetVisibility();
-            ApproveCommand = new RelayCommand(ApproveCommandExecute, CanApproveCommandExecute);
-            DeclineCommand = new RelayCommand(DeclineCommandExecute, CanDeclineCommandExecute);
-        }
-        public void SetVisibility()
-        {
-            approveButtonVisibility = Data.Instance.LoggedInUser.IsAdmin ? Visibility.Visible : Visibility.Collapsed;
-            declineButtonVisibility = Data.Instance.LoggedInUser.IsAdmin ? Visibility.Visible : Visibility.Collapsed;
-            Log.Information($"Approve button visibility: {approveButtonVisibility}, Decline button visibility: {declineButtonVisibility}");
+            LoadRequests();
+
+            ApproveCommand = new RelayCommand(ApproveExecute, obj => SelectedRequest != null);
+            DeclineCommand = new RelayCommand(DeclineExecute, obj => SelectedRequest != null);
         }
 
-        public Visibility ApproveButtonVisibility
+        private void LoadRequests()
         {
-            get { return approveButtonVisibility; }
-            set
+            if (Data.Instance.LoggedInUser.IsAdmin)
             {
-                approveButtonVisibility = value;
-                OnPropertyChanged(nameof(ApproveButtonVisibility));
-            }
-        }
-
-        public Visibility DeclineButtonVisibility
-        {
-            get { return declineButtonVisibility; }
-            set
-            {
-                declineButtonVisibility = value;
-                OnPropertyChanged(nameof(DeclineButtonVisibility));
-            }
-        }
-
-        public void RefreshPage()
-        {
-            if(Data.Instance.LoggedInUser != null)
-            {
-                if (Data.Instance.LoggedInUser.IsAdmin)
-                {
-                    Requests = new ObservableCollection<Absence>(absenceService.GetAll(true));
-                }
-                else
-                {
-                    Requests = new ObservableCollection<Absence>(absenceService.GetAll(false).Where(p => p.UserId == Data.Instance.LoggedInUser.Id));
-                }
-                Log.Information("Requests page refreshed successfully.");
+                PendingRequests = new ObservableCollection<Absence>(
+                    absenceService.GetAll(true).Where(r => !r.IsApproved)
+                );
             }
             else
             {
-                Log.Warning("User is not logged in, unable to refresh page.");
+                PendingRequests = new ObservableCollection<Absence>(
+                    absenceService.GetAll(false).Where(r => !r.IsDeleted && !r.IsApproved)
+                );
+
+                DeclinedRequests = new ObservableCollection<Absence>(
+                    absenceService.GetAll(false).Where(r => r.IsDeleted)
+                );
             }
         }
 
         public Absence SelectedRequest
         {
-            get { return selectedAbsence; }
+            get => selectedRequest;
             set
             {
-                if (selectedAbsence != value)
-                {
-                    selectedAbsence = value;
-                    OnPropertyChanged(nameof(SelectedRequest));
-                }
+                selectedRequest = value;
+                OnPropertyChanged(nameof(SelectedRequest));
+                // Refresh buttons state
+                ((RelayCommand)ApproveCommand).RaiseCanExecuteChanged();
+                ((RelayCommand)DeclineCommand).RaiseCanExecuteChanged();
             }
         }
 
-        private bool CanDeclineCommandExecute(object obj)
+        private void ApproveExecute(object obj)
         {
-            return true;
+            if (SelectedRequest == null) return;
+
+            SelectedRequest.IsApproved = true;
+            absenceService.Update(SelectedRequest.Id, SelectedRequest);
+            MessageBox.Show("Successfully approved");
+            PendingRequests.Remove(SelectedRequest);
         }
 
-        private void DeclineCommandExecute(object obj)
+        private void DeclineExecute(object obj)
         {
-            if (SelectedRequest != null)
-            {
-                Absence absence = SelectedRequest;
-                absence.IsApproved = false;
-                absence.IsDeleted = true;
-                absenceService.Update(absence.Id, absence);
-                //odkomentarisati za logovanje
-                //string userString = $"{DateTime.Now} {Data.Instance.LoggedInUser.FirstName} {Data.Instance.LoggedInUser.LastName} declined absence";
-                //Log(userString);
-                Log.Information($"Request declined: {absence.Id} by {Data.Instance.LoggedInUser.FirstName} {Data.Instance.LoggedInUser.LastName}");
-                MessageBox.Show("Uspesno ste izmenili zahtev");
-                Requests.Remove(SelectedRequest);
-            }
-            else 
-            {
-                Log.Warning("No request selected for decline.");
-                MessageBox.Show("Morate da selektujete zahtev"); 
-            }
-        }
+            if (SelectedRequest == null) return;
 
-        private bool CanApproveCommandExecute(object obj)
-        {
-            return true; 
+            SelectedRequest.IsApproved = false;
+            SelectedRequest.IsDeleted = true;
+            absenceService.Update(SelectedRequest.Id, SelectedRequest);
+            MessageBox.Show("Successfully approved");
+            PendingRequests.Remove(SelectedRequest);
         }
-
-        private void ApproveCommandExecute(object obj)
-        {
-            if(SelectedRequest != null)
-            {
-                Absence absence = SelectedRequest;
-                absence.IsApproved = true;
-                absenceService.Update(absence.Id, absence);
-                MessageBox.Show("Uspesno ste izmenili zahtev");
-                //odkomentarisati za logovanje
-                //string userString = $"{DateTime.Now} {Data.Instance.LoggedInUser.FirstName} {Data.Instance.LoggedInUser.LastName} approved absence";
-                //Log(userString);
-                Log.Information($"Request approved: {absence.Id} by {Data.Instance.LoggedInUser.FirstName} {Data.Instance.LoggedInUser.LastName}");
-                Requests.Remove(SelectedRequest);
-            }
-            else 
-            {
-                Log.Warning("No request selected for approval.");
-                MessageBox.Show("Morate da selektujete zahtev"); 
-            }
-        }
-
     }
+
+
 }

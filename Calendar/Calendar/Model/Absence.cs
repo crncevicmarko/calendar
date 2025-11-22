@@ -29,5 +29,9 @@ namespace Calendar.Model
             }
         }
 
+        public string UserName => User?.UserName;
+        public string Email => User?.Email;
+        public string Status => IsDeleted ? "Declined" : IsApproved ? "Approved" : "Pending";
+
     }
 }

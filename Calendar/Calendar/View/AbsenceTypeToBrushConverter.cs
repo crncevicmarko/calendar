@@ -20,7 +20,7 @@ namespace Calendar.View
                     case "VERSKI_PRAZNIK":
                         return Brushes.LightYellow;
                     case "SLOBODAN_DAN":
-                        return Brushes.LightBlue;
+                        return Brushes.LightSalmon;
                     case "OSTALO":
                         return Brushes.LightGray;
                     default:

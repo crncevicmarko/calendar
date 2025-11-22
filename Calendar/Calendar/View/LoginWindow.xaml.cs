@@ -26,5 +26,12 @@ namespace Calendar.View
 
             DataContext = new LoginWindowViewModel(this, mainWindow);
         }
+
+        private void btn_Register_Clicked_Down(object sender, MouseButtonEventArgs e)
+        {
+            var registerWindow = new UserProfileWindow(false, null, false);
+            registerWindow.Show();
+            this.Close();
+        }
     }
 }

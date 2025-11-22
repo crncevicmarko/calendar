@@ -1,43 +1,52 @@
-﻿    <UserControl x:Class="Calendar.View.UserControlDays"
-                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-                 xmlns:local="clr-namespace:Calendar.View"
-                 mc:Ignorable="d" 
-                 Width="120" Height="53"
-                 PreviewMouseLeftButtonDown="UserControl_PreviewMouseLeftButtonDown"
-                 MouseDoubleClick="UserControl_MouseDoubleClick">
-                 
-        <Border x:Name="RootBorder" BorderBrush="Black" BorderThickness="1">
-            <Border.Style>
-                <Style TargetType="Border">
-                    <Setter Property="Background" Value="White"/>
-                    <Setter Property="BorderBrush" Value="Black"/>
-                    <Setter Property="BorderThickness" Value="1"/>
-                    <Style.Triggers>
-                        <!-- Binduj na UserControlDays.IsSelected -->
-                        <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type local:UserControlDays}}}" Value="True">
-                            <Setter Property="BorderBrush" Value="Blue"/>
-                            <Setter Property="BorderThickness" Value="3"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Border.Style>
+﻿<UserControl x:Class="Calendar.View.UserControlDays"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Calendar.View"
+             mc:Ignorable="d" 
+             MinWidth="120" MinHeight="60"
+             PreviewMouseLeftButtonDown="UserControl_PreviewMouseLeftButtonDown"
+             MouseDoubleClick="UserControl_MouseDoubleClick">
 
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="21"/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
+    <Border x:Name="RootBorder" CornerRadius="5" BorderThickness="1" Padding="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Border.Style>
+            <Style TargetType="Border">
+                <Setter Property="Background" Value="White"/>
+                <Setter Property="BorderBrush" Value="#BDBDBD"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect Color="Gray" BlurRadius="3" ShadowDepth="1"/>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type local:UserControlDays}}}" Value="True">
+                        <Setter Property="BorderBrush" Value="#2196F3"/>
+                        <Setter Property="BorderThickness" Value="2"/>
+                        <Setter Property="Background" Value="#E3F2FD"/>
+                    </DataTrigger>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#F5F5F5"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </Border.Style>
 
-                <Border BorderBrush="Black" BorderThickness="0,0,0,1">
-                    <Label Grid.Row="0" Name="lblnum" Content="Text" FontSize="10" Height="21"/>
-                </Border>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
 
-                <ScrollViewer Grid.Row="1" VerticalAlignment="Bottom" Height="Auto">
-                    <StackPanel Width="Auto" Height="Auto" Name="stackPanel"/>
-                </ScrollViewer>
-            </Grid>
-        </Border>
-    </UserControl>
+            <Border BorderBrush="#BDBDBD" BorderThickness="0,0,0,1" Background="#F0F0F0">
+                <Label Grid.Row="0" Name="lblnum" Content="1" FontSize="12" FontWeight="Bold" 
+                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+
+            <ScrollViewer Grid.Row="1" VerticalAlignment="Top" HorizontalScrollBarVisibility="Disabled">
+                <StackPanel Name="stackPanel" Margin="2,2,2,2"/>
+            </ScrollViewer>
+        </Grid>
+    </Border>
+</UserControl>

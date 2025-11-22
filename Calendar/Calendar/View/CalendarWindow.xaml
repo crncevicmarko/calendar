@@ -5,79 +5,102 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Calendar.View"
         mc:Ignorable="d"
-        Title="CalendarWindow" Height="500" Width="850">
+        Title="CalendarWindow" MinHeight="550" MinWidth="850">
+
+    <Window.Resources>
+        <!-- Stil za dugmad sa zaobljenim ivicama -->
+        <Style TargetType="Button" x:Key="RoundedButton">
+            <Setter Property="Background" Value="#2196F3"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#1976D2"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="5,2"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="70"></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="70"/>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
+
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0" Width="116">
+
+            <Grid Grid.Column="0">
                 <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
+                    <RowDefinition/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Label Grid.Row="0" Name="lblMonth" Content="{Binding LabelText}"></Label>
-                <Label Grid.Row="1" Content="Sunday" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom"></Label>
+                <Label Grid.Row="0" Name="lblMonth" Content="{Binding LabelText}" 
+                       FontWeight="Bold" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Label Grid.Row="1" Content="Sunday" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" FontWeight="SemiBold"/>
             </Grid>
-            <Label Grid.Column="1" Content="Monday" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom"></Label>
-            <Label Grid.Column="2" Content="Tuesday" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom"></Label>
-            <Label Grid.Column="3" Content="Wednesday" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom"></Label>
-            <Label Grid.Column="4" Content="Thursday" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom"></Label>
-            <Label Grid.Column="5" Content="Friday" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom"></Label>
-            <Grid Grid.Column="6" Width="116">
+
+            <Label Grid.Column="1" Content="Monday" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" FontWeight="SemiBold"/>
+            <Label Grid.Column="2" Content="Tuesday" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" FontWeight="SemiBold"/>
+            <Label Grid.Column="3" Content="Wednesday" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" FontWeight="SemiBold"/>
+            <Label Grid.Column="4" Content="Thursday" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" FontWeight="SemiBold"/>
+            <Label Grid.Column="5" Content="Friday" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" FontWeight="SemiBold"/>
+
+            <Grid Grid.Column="6">
                 <Grid.RowDefinitions>
-                    <RowDefinition>
-                    </RowDefinition>
-                    <RowDefinition></RowDefinition>
+                    <RowDefinition/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Button Grid.Column="1" Content="Day" Margin="5" Command="{Binding DayCommand}"></Button>
-                </Grid>
-                <Label Grid.Row="1" Content="Saturday" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom"></Label>
+                <Button Grid.Row="0" Content="Day" Width="60" Height="30" Margin="0,5,0,0" 
+                        Command="{Binding DayCommand}" Style="{StaticResource RoundedButton}"/>
+                <Label Grid.Row="1" Content="Saturday" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" FontWeight="SemiBold"/>
             </Grid>
         </Grid>
-        <!--<WrapPanel Grid.Row="1" Name="daycontainer" Width="850" Orientation="Horizontal">
-            <ItemsControl Width="850" Height="365" ItemsSource="{Binding Items}"></ItemsControl>
-        </WrapPanel>-->
 
-        <ItemsControl  Grid.Row="1" Width="850" ItemsSource="{Binding Items}">
+        <!-- Dnevni kontenjer sa resajzabilnim kolonama -->
+        <ItemsControl Grid.Row="1" ItemsSource="{Binding Items}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel Orientation="Horizontal"/>
+                    <UniformGrid Columns="7"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
         </ItemsControl>
 
+        <!-- Navigaciona dugmad -->
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
             <Grid Grid.Column="2">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
-                <Button Grid.Column="0" Content="Previous" Margin="5,5,5,5" Command="{Binding PreviousCommand}"></Button>
-                <Button Grid.Column="1" Content="Next" Margin="5,5,5,5" Command="{Binding NextCommand}"></Button>
+                <Button Grid.Column="0" Content="Previous" Margin="5" Style="{StaticResource RoundedButton}" Background="#4CAF50" BorderBrush="#388E3C" Command="{Binding PreviousCommand}"/>
+                <Button Grid.Column="1" Content="Next" Margin="5" Style="{StaticResource RoundedButton}" Background="#4CAF50" BorderBrush="#388E3C" Command="{Binding NextCommand}"/>
             </Grid>
         </Grid>
     </Grid>

@@ -25,5 +25,10 @@ namespace Calendar.View
             InitializeComponent();
             DataContext = new UsersWindowViewModel(this);
         }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }

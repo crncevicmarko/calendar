@@ -10,33 +10,50 @@
         <local:LaneToLeftConverter x:Key="LaneToLeftConverter"/>
         <local:LaneToWidthConverter x:Key="LaneToWidthConverter"/>
         <local:AbsenceTypeToBrushConverter x:Key="AbsenceTypeToBrushConverter"/>
+
+        <Style x:Key="HourLineStyle" TargetType="Rectangle">
+            <Setter Property="Height" Value="1"/>
+            <Setter Property="Fill" Value="#E0E0E0"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Margin" Value="0,49,0,0"/>
+        </Style>
+
+        <Style x:Key="HourTextStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Foreground" Value="#444"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,2,0,0"/>
+        </Style>
+
+        <Style x:Key="EventCardStyle" TargetType="Border">
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Padding" Value="6"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="Background" Value="#B1D7FF"/>
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="8" ShadowDepth="2" Opacity="0.2"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
     </Window.Resources>
 
     <Grid>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <!-- All-day events -->
             <RowDefinition Height="*"/>
-            <!-- Timeline -->
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50"/>
-            <!-- Satovi -->
             <ColumnDefinition Width="*"/>
-            <!-- Timeline -->
         </Grid.ColumnDefinitions>
 
-        <!-- Satovi -->
-        <ItemsControl Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Hours}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding}" Height="50" VerticalAlignment="Top"/>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-
-        <!-- All-day events (gore, iznad timeline) -->
+        <!-- All-day events -->
         <ItemsControl Grid.Row="0" Grid.Column="1" ItemsSource="{Binding AllDayEvents}" Height="40">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -46,61 +63,89 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Border Background="{Binding AbsenceType, Converter={StaticResource AbsenceTypeToBrushConverter}}"
-                        Height="{Binding Converter={StaticResource DurationToHeightConverter}}"
-                        CornerRadius="4" Padding="4">
-                        <TextBlock Text="{Binding Title}" TextWrapping="Wrap"/>
+                            CornerRadius="6" Padding="6" Margin="2">
+                        <TextBlock Text="{Binding Title}"
+                                   TextWrapping="Wrap"
+                                   FontWeight="Bold"
+                                   Foreground="Black"/>
                     </Border>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
 
-        <!-- Timeline sa Canvas za preklapajuće događaje -->
-        <ScrollViewer Grid.Row="1" Grid.Column="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-            <Canvas x:Name="TimelineCanvas" Height="1200">
-                <ItemsControl ItemsSource="{Binding TimedEvents}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <Canvas/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
+        <!-- Scroll for both hours + timeline -->
+        <ScrollViewer Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                      HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
 
-                    <ItemsControl.ItemContainerStyle>
-                        <Style TargetType="ContentPresenter">
-                            <Setter Property="Canvas.Top" 
-                                    Value="{Binding Start, Converter={StaticResource StartTimeToTopConverter}}"/>
-                            <Setter Property="Canvas.Left">
-                                <Setter.Value>
-                                    <MultiBinding Converter="{StaticResource LaneToLeftConverter}">
-                                        <Binding Path="LaneIndex"/>
-                                        <Binding Path="LaneCount"/>
-                                        <Binding ElementName="TimelineCanvas" Path="ActualWidth"/>
-                                    </MultiBinding>
-                                </Setter.Value>
-                            </Setter>
-                            <Setter Property="Width">
-                                <Setter.Value>
-                                    <MultiBinding Converter="{StaticResource LaneToWidthConverter}">
-                                        <Binding Path="LaneIndex"/>
-                                        <Binding Path="LaneCount"/>
-                                        <Binding ElementName="TimelineCanvas" Path="ActualWidth"/>
-                                    </MultiBinding>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </ItemsControl.ItemContainerStyle>
+            <Grid Background="WhiteSmoke">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
+                <ItemsControl Grid.Column="0" ItemsSource="{Binding Hours}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border Background="LightBlue"
-                                    Height="{Binding Converter={StaticResource DurationToHeightConverter}}"
-                                    CornerRadius="4" Padding="4">
-                                <TextBlock Text="{Binding Title}" TextWrapping="Wrap"/>
-                            </Border>
+                            <Grid Height="50">
+                                <TextBlock Text="{Binding}" Style="{StaticResource HourTextStyle}"/>
+                                <Rectangle Style="{StaticResource HourLineStyle}"/>
+                            </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
-            </Canvas>
-        </ScrollViewer>
 
+                <!-- TIMELINE -->
+                <Canvas x:Name="TimelineCanvas" Grid.Column="1" Height="1200" Background="White">
+
+                    <ItemsControl ItemsSource="{Binding TimedEvents}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <Canvas/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+
+                        <ItemsControl.ItemContainerStyle>
+                            <Style TargetType="ContentPresenter">
+
+                                <Setter Property="Canvas.Top"
+                                        Value="{Binding Start, Converter={StaticResource StartTimeToTopConverter}}"/>
+
+                                <Setter Property="Canvas.Left">
+                                    <Setter.Value>
+                                        <MultiBinding Converter="{StaticResource LaneToLeftConverter}">
+                                            <Binding Path="LaneIndex"/>
+                                            <Binding Path="LaneCount"/>
+                                            <Binding ElementName="TimelineCanvas" Path="ActualWidth"/>
+                                        </MultiBinding>
+                                    </Setter.Value>
+                                </Setter>
+
+                                <Setter Property="Width">
+                                    <Setter.Value>
+                                        <MultiBinding Converter="{StaticResource LaneToWidthConverter}">
+                                            <Binding Path="LaneIndex"/>
+                                            <Binding Path="LaneCount"/>
+                                            <Binding ElementName="TimelineCanvas" Path="ActualWidth"/>
+                                        </MultiBinding>
+                                    </Setter.Value>
+                                </Setter>
+
+                            </Style>
+                        </ItemsControl.ItemContainerStyle>
+
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Style="{StaticResource EventCardStyle}"
+                                        Height="{Binding Converter={StaticResource DurationToHeightConverter}}">
+                                    <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Foreground="#0A2A43"/>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+
+                    </ItemsControl>
+
+                </Canvas>
+            </Grid>
+        </ScrollViewer>
     </Grid>
 </Window>

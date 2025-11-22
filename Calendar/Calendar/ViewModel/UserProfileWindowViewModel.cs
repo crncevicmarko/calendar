@@ -4,26 +4,26 @@ using Calendar.Service;
 using Calendar.View;
 using Serilog;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
 namespace Calendar.ViewModel
 {
-    public class UserProfileWindowViewModel: ViewModelBase
+    public class UserProfileWindowViewModel : ViewModelBase
     {
         public ICommand ChangeCommand { get; set; }
         public ICommand RegisterCommand { get; set; }
         public ICommand CancelCommand { get; set; }
+
         private Visibility userProfileVisibility = Visibility.Visible;
         private Visibility registrationVisibility = Visibility.Collapsed;
-        Window window;
+
+        private Window window;
         private IUserService userService;
         private string firstName;
         private string lastName;
@@ -33,27 +33,28 @@ namespace Calendar.ViewModel
         private User user1;
         private bool isAddCommand1;
 
-
         public UserProfileWindowViewModel(Window window, bool mode, User user, bool isAddCommand)
         {
-            if(user != null)
-            {
+            if (user != null)
                 user1 = user;
-            }
+
             isAddCommand1 = isAddCommand;
             this.window = window;
             userService = new UserService();
+
             ChangeCommand = new RelayCommand(Change, CanChange);
             RegisterCommand = new RelayCommand(Register, CanRegister);
             CancelCommand = new RelayCommand(Cancel, CanCancel);
+
             SetVisibility(mode);
             LoadUserData(mode);
+
             Log.Information("UserProfileWindowViewModel initialized.");
         }
 
         public string FirstName
         {
-            get { return firstName; }
+            get => firstName;
             set
             {
                 if (firstName != value)
@@ -64,9 +65,10 @@ namespace Calendar.ViewModel
                 }
             }
         }
+
         public string LastName
         {
-            get { return lastName; }
+            get => lastName;
             set
             {
                 if (lastName != value)
@@ -77,9 +79,10 @@ namespace Calendar.ViewModel
                 }
             }
         }
+
         public string Email
         {
-            get { return email; }
+            get => email;
             set
             {
                 if (email != value)
@@ -90,9 +93,10 @@ namespace Calendar.ViewModel
                 }
             }
         }
+
         public string UserName
         {
-            get { return userName; }
+            get => userName;
             set
             {
                 if (userName != value)
@@ -103,45 +107,70 @@ namespace Calendar.ViewModel
                 }
             }
         }
+
         public string Password
         {
-            get { return password; }
+            get => password;
             set
             {
                 if (password != value)
                 {
                     password = value;
-                    OnPropertyChanged(nameof(password));
+                    OnPropertyChanged(nameof(Password));
                     Log.Information("Password set.");
                 }
             }
         }
 
-        private void LoadUserData(bool mode)
+        public Visibility UserProfileVisibility
         {
-            if (mode)
+            get => userProfileVisibility;
+            set
             {
-                User user = Data.Instance.LoggedInUser;
-                if(user1 != null)
-                {
-                    user = user1;
-                }
-                if (user != null)
-                {
-                    FirstName = user.FirstName;
-                    LastName = user.LastName;
-                    Email = user.Email;
-                    UserName = user.UserName;
-                    Password = "";
-                    Log.Information("User data loaded: {FirstName} {LastName}, {Email}, {UserName}.", FirstName, LastName, Email, UserName);
-                }
+                userProfileVisibility = value;
+                OnPropertyChanged(nameof(UserProfileVisibility));
+                OnPropertyChanged(nameof(WindowTitle));
             }
         }
 
-        private bool CanCancel(object obj)
+        public Visibility RegistrationVisibility
         {
-            return true;
+            get => registrationVisibility;
+            set
+            {
+                registrationVisibility = value;
+                OnPropertyChanged(nameof(RegistrationVisibility));
+                OnPropertyChanged(nameof(WindowTitle));
+            }
         }
+
+        public string WindowTitle => RegistrationVisibility == Visibility.Visible ? "Register User" : "User Profile";
+
+        private void LoadUserData(bool mode)
+        {
+            if (!mode) return;
+
+            User user = Data.Instance.LoggedInUser;
+            if (user1 != null) user = user1;
+
+            if (user != null)
+            {
+                FirstName = user.FirstName;
+                LastName = user.LastName;
+                Email = user.Email;
+                UserName = user.UserName;
+                Password = "";
+                Log.Information("User data loaded: {FirstName} {LastName}, {Email}, {UserName}.", FirstName, LastName, Email, UserName);
+            }
+        }
+
+        public void SetVisibility(bool isProfileMode)
+        {
+            UserProfileVisibility = isProfileMode ? Visibility.Visible : Visibility.Collapsed;
+            RegistrationVisibility = isProfileMode ? Visibility.Collapsed : Visibility.Visible;
+        }
+
+        private bool CanCancel(object obj) => true;
 
         private void Cancel(object obj)
         {
@@ -155,45 +184,42 @@ namespace Calendar.ViewModel
             }
         }
 
-        private bool CanRegister(object obj)
-        {
-            return true;
-        }
+        private bool CanRegister(object obj) => true;
 
         private void Register(object obj)
         {
-            User user = new User()
+            User user = new User
             {
                 FirstName = FirstName?.Trim(),
                 LastName = LastName?.Trim(),
                 Email = Email?.Trim(),
                 UserName = UserName?.Trim(),
                 Password = HashPassword(Password?.Trim())
-                //Password = Password
             };
+
             if (HasEmptyFields(user))
             {
                 Log.Warning("Registration failed: fields are empty.");
                 MessageBox.Show("Sva polja moraju biti popunjena!");
+                return;
             }
-            else
+
+            userService.Add(user);
+            Log.Information("User registered: {UserName}.", user.UserName);
+            this.window.Close();
+
+            if (isAddCommand1)
             {
-                userService.Add(user);
-                Log.Information("User registered: {UserName}.", user.UserName);
-                this.window.Close();
-                if (isAddCommand1)
-                {
-                    var usersWindow = new UsersWindow();
-                    usersWindow.ShowDialog();
-                    Log.Information("Opened UsersWindow after registration.");
-                }
+                var usersWindow = new UsersWindow();
+                usersWindow.ShowDialog();
+                Log.Information("Opened UsersWindow after registration.");
             }
         }
 
         private string HashPassword(string password)
         {
             var hasher = new SHA256Managed();
-            var unhashed = System.Text.Encoding.Unicode.GetBytes(password);
+            var unhashed = Encoding.Unicode.GetBytes(password);
             var hashed = hasher.ComputeHash(unhashed);
             return Convert.ToBase64String(hashed);
         }
@@ -201,44 +227,13 @@ namespace Calendar.ViewModel
         public bool HasEmptyFields(object obj)
         {
             return obj.GetType()
-                      .GetProperties(bindingAttr: BindingFlags.Public | BindingFlags.Instance)
+                      .GetProperties(BindingFlags.Public | BindingFlags.Instance)
                       .Where(p => p.PropertyType == typeof(string))
                       .Select(p => (string)p.GetValue(obj))
                       .Any(value => string.IsNullOrEmpty(value));
         }
 
-        public void SetVisibility(bool bolean)
-        {
-            userProfileVisibility = bolean ? Visibility.Visible : Visibility.Collapsed;
-            registrationVisibility = bolean ? Visibility.Collapsed : Visibility.Visible;
-        }
-
-        public Visibility UserProfileVisibility
-        {
-            get { return userProfileVisibility; }
-            set
-            {
-                userProfileVisibility = value;
-                OnPropertyChanged(nameof(UserProfileVisibility));
-            }
-        }
-
-
-        public Visibility RegistrationVisibility
-        {
-            get { return registrationVisibility; }
-            set
-            {
-                registrationVisibility = value;
-                OnPropertyChanged(nameof(RegistrationVisibility));
-            }
-        }
-
-
-        private bool CanChange(object obj)
-        {
-            return true;
-        }
+        private bool CanChange(object obj) => true;
 
         private void Change(object obj)
         {
@@ -248,28 +243,32 @@ namespace Calendar.ViewModel
                 MessageBox.Show("Unesite ispravnu email adresu.");
                 return;
             }
-            User user = new User()
+
+            User user = new User
             {
                 Id = Data.Instance.LoggedInUser.Id,
                 FirstName = FirstName?.Trim(),
                 LastName = LastName?.Trim(),
                 Email = newEmail,
                 UserName = UserName?.Trim(),
-                Password = string.IsNullOrWhiteSpace(Password) ? Data.Instance.LoggedInUser.Password : HashPassword(Password) // Keep old password if unchanged
+                Password = string.IsNullOrWhiteSpace(Password) ? Data.Instance.LoggedInUser.Password : HashPassword(Password)
             };
-            if(user1 != null)
+
+            if (user1 != null)
             {
                 userService.Update(user1.Id, user);
                 Log.Information("Updated user with ID {UserId}.", user1.Id);
             }
-            else 
+            else
             {
                 userService.Update(user.Id, user);
                 Log.Information("Updated user with ID {UserId}.", user.Id);
             }
+
             Data.Instance.LoggedInUser = user;
             MessageBox.Show("Uspesno ste izmenili podatke");
         }
+
         private bool IsValidEmail(string email)
         {
             if (string.IsNullOrWhiteSpace(email))
@@ -278,6 +277,5 @@ namespace Calendar.ViewModel
             string pattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
             return Regex.IsMatch(email, pattern);
         }
-
     }
 }

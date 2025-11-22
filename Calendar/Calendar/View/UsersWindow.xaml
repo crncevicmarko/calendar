@@ -5,38 +5,104 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Calendar.View"
         mc:Ignorable="d"
-        Title="UsersWindow" Height="450" Width="800">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="30"></RowDefinition>
-            <RowDefinition></RowDefinition>
-        </Grid.RowDefinitions>
+        Title="Users" Height="500" Width="800"
+        WindowStartupLocation="CenterScreen"
+        Background="#F3F4F6">
 
-        <Menu Grid.Row="0" 
-              VerticalAlignment="Top" 
-              Height="30">
-            <MenuItem Name="miDeleteStudent" Height="30" Header="Block user" CommandParameter="{Binding SelectedUser}" Command="{Binding BlockCommand}"></MenuItem>
-            <Label Name="lblSearch" Content="Search:"></Label>
-            <TextBox Height="30" Width="150" Name="txtSearch" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
-        </Menu>
+    <Border CornerRadius="10" Background="White" Padding="20" Margin="10">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-        <DataGrid CanUserAddRows="False" 
-          IsReadOnly="True" 
-          ItemsSource="{Binding Users}"
-          SelectedItem="{Binding SelectedUser}"
-          Grid.Row="1" 
-          Name="dgUsers" 
-          Width="800" 
-          Margin="0,0,-8,0"
-          AutoGenerateColumns="False">
+            <!-- Top menu with Block user button and search -->
+            <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Left" Margin="0,0,0,10" VerticalAlignment="Center">
+                <Button Content="Block user" Command="{Binding BlockCommand}" CommandParameter="{Binding SelectedUser}" 
+                        Background="#EF4444" Foreground="White" FontWeight="Bold"
+                        Height="30" Width="100" Margin="0,0,10,0" Cursor="Hand"/>
 
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}" />
-                <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}" />
-                <DataGridTextColumn Header="Email" Binding="{Binding Email}" />
-                <DataGridTextColumn Header="Username" Binding="{Binding UserName}" />
-            </DataGrid.Columns>
-        </DataGrid>
+                <Label Content="Search:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                <TextBox Width="200" Height="30" Padding="6" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
+            </StackPanel>
 
-    </Grid>
+            <!-- DataGrid for users -->
+            <DataGrid Grid.Row="1"
+                      Name="dgUsers"
+                      ItemsSource="{Binding Users}"
+                      SelectedItem="{Binding SelectedUser}"
+                      CanUserAddRows="False"
+                      IsReadOnly="True"
+                      AutoGenerateColumns="False"
+                      RowHeight="35"
+                      GridLinesVisibility="Horizontal"
+                      HorizontalScrollBarVisibility="Auto"
+                      VerticalScrollBarVisibility="Auto"
+                      Background="#F9FAFB"
+                      AlternatingRowBackground="#F3F4F6"
+                      ColumnHeaderHeight="40"
+                      Width="Auto"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Stretch">
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}" Width="*" >
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}" Width="*">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="2*">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Username" Binding="{Binding UserName}" Width="*">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Border>
 </Window>
