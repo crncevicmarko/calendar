@@ -35,6 +35,14 @@ insert into Users (firstName, lastName, email, userName, password, isAdmin, isDe
 values ('admin','admin','admin@gmail.com','admin','admin123',1,0)
 
 select * from Absences;
+
+UPDATE Absences
+SET reason = 'DayOff'
+WHERE reason = 'SLOBODAN_DAN';
+
 select * from Users;
+Update Users set password = 'mika123' where id = 3;
 select * from Appointments;
 UPDATE Absences SET isDeleted = 1, isApproved = 0 WHERE id = 1002;
+
+

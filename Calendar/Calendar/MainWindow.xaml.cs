@@ -51,7 +51,7 @@ namespace Calendar
                 btnUsers.Visibility = Visibility.Collapsed;
                 btnProfile.Visibility = Visibility.Collapsed;
                 btnCalendar.Visibility = Visibility.Collapsed;
-                btnRequests.Visibility= Visibility.Collapsed;
+                btnRequests.Visibility = Visibility.Collapsed;
                 btnLogOut.Visibility = Visibility.Collapsed;
 
             }

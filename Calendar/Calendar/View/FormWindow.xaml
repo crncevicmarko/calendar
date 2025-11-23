@@ -116,11 +116,11 @@
                     <Label Grid.Row="0" Grid.Column="0" Content="Event:"/>
                     <ComboBox Grid.Row="0" Grid.Column="1" 
                               Text="{Binding Absence.Event}">
-                        <ComboBoxItem>BOLOVANJE</ComboBoxItem>
-                        <ComboBoxItem>GODISNJI_ODMOR</ComboBoxItem>
-                        <ComboBoxItem>VERSKI_PRAZNIK</ComboBoxItem>
-                        <ComboBoxItem>SLOBODAN_DAN</ComboBoxItem>
-                        <ComboBoxItem>OSTALO</ComboBoxItem>
+                        <ComboBoxItem>SickLeave</ComboBoxItem>
+                        <ComboBoxItem>AnnualLeave</ComboBoxItem>
+                        <ComboBoxItem>ReligiousHoliday</ComboBoxItem>
+                        <ComboBoxItem>DayOff</ComboBoxItem>
+                        <ComboBoxItem>Other</ComboBoxItem>
                     </ComboBox>
 
                     <Label Grid.Row="1" Grid.Column="0" Content="Start of event:"/>

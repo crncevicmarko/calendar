@@ -8,6 +8,10 @@ namespace Calendar.Model
 {
     public enum ETypeOfEvent
     {
-        BOLOVANJE,GODISNJI_ODMOR,VERSKI_PRAZNIK,SLOBODAN_DAN,OSTALO
+        SickLeave,
+        AnnualLeave,
+        ReligiousHoliday,
+        DayOff,
+        Other
     }
 }

@@ -117,12 +117,18 @@ namespace Calendar.View
         {
             switch (type)
             {
-                case "BOLOVANJE": return Brushes.LightPink;
-                case "GODISNJI_ODMOR": return Brushes.LightGreen;
-                case "VERSKI_PRAZNIK": return Brushes.LightYellow;
-                case "SLOBODAN_DAN": return Brushes.LightSalmon;
-                case "OSTALO": return Brushes.LightGray;
-                default: return Brushes.LightGray;
+                case "SickLeave":
+                    return Brushes.LightPink;
+                case "AnnualLeave":
+                    return Brushes.LightGreen;
+                case "ReligiousHoliday":
+                    return Brushes.LightYellow;
+                case "DayOff":
+                    return Brushes.LightSalmon;
+                case "Other":
+                    return Brushes.LightGray;
+                default:
+                    return Brushes.LightGray;
             }
         }
 

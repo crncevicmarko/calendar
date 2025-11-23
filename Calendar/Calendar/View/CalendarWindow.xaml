@@ -3,12 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Calendar.View"
+        xmlns:local="clr-namespace:Calendar.Converters"
         mc:Ignorable="d"
         Title="CalendarWindow" MinHeight="550" MinWidth="850">
 
     <Window.Resources>
-        <!-- Stil za dugmad sa zaobljenim ivicama -->
         <Style TargetType="Button" x:Key="RoundedButton">
             <Setter Property="Background" Value="#2196F3"/>
             <Setter Property="Foreground" Value="White"/>
@@ -76,7 +75,6 @@
             </Grid>
         </Grid>
 
-        <!-- Dnevni kontenjer sa resajzabilnim kolonama -->
         <ItemsControl Grid.Row="1" ItemsSource="{Binding Items}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -85,7 +83,6 @@
             </ItemsControl.ItemsPanel>
         </ItemsControl>
 
-        <!-- Navigaciona dugmad -->
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>

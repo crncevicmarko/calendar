@@ -1,7 +1,7 @@
 ﻿using Calendar.Commands;
 using Calendar.Model;
 using Calendar.Service;
-using Calendar.View;
+using Calendar.Converters;
 using Serilog;
 using System;
 using System.Collections.Generic;

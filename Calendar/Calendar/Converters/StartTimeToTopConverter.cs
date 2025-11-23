@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace Calendar.View
+namespace Calendar.Converters
 {
     public class StartTimeToTopConverter : IValueConverter
     {

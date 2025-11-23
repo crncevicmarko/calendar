@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace Calendar.View
+namespace Calendar.Converters
 {
     public class AbsenceTypeToBrushConverter : IValueConverter
     {
@@ -13,15 +13,15 @@ namespace Calendar.View
             {
                 switch (type)
                 {
-                    case "BOLOVANJE":
+                    case "SickLeave":
                         return Brushes.LightPink;
-                    case "GODISNJI_ODMOR":
+                    case "AnnualLeave":
                         return Brushes.LightGreen;
-                    case "VERSKI_PRAZNIK":
+                    case "ReligiousHoliday":
                         return Brushes.LightYellow;
-                    case "SLOBODAN_DAN":
+                    case "DayOff":
                         return Brushes.LightSalmon;
-                    case "OSTALO":
+                    case "Other":
                         return Brushes.LightGray;
                     default:
                         return Brushes.LightGray;

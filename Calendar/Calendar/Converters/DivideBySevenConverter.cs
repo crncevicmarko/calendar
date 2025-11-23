@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace Calendar.View
+namespace Calendar.Converters
 {
     public class DivideBySevenConverter : IValueConverter
     {

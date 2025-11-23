@@ -1,122 +1,52 @@
 ﻿<Window x:Class="Calendar.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Dashboard" Height="600" Width="900"
+        Title="Dashboard" Height="450" Width="800"
         Background="#F3F4F6">
 
     <Window.Resources>
-
-        <!-- Sekundarni Card (Profile, Users, Calendar...) -->
-        <Style x:Key="CardButton" TargetType="Button">
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="Padding" Value="20"/>
-            <Setter Property="Margin" Value="20"/>
-            <Setter Property="FontSize" Value="18"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Width" Value="200"/>
-            <Setter Property="Height" Value="120"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border CornerRadius="15"
-                                Background="{TemplateBinding Background}"
-                                Effect="{DynamicResource cardShadow}">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#E5E7EB"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <!-- Primarni Card (Login, Registration) -->
-        <Style x:Key="PrimaryCard" TargetType="Button" BasedOn="{StaticResource CardButton}">
+        <Style x:Key="MainButtonStyle" TargetType="Button">
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Margin" Value="5"/>
             <Setter Property="Background" Value="#3B82F6"/>
-            <!-- Plava -->
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Height" Value="140"/>
-            <!-- Veće -->
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border CornerRadius="15"
-                                Background="{TemplateBinding Background}"
-                                Effect="{DynamicResource cardShadow}">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="10"
+                                SnapsToDevicePixels="True">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter Property="Background" Value="#2563EB"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" Value="#1D4ED8"/>
+                                <Setter Property="Background" Value="#1E40AF"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
-
-        <DropShadowEffect x:Key="cardShadow" BlurRadius="15" ShadowDepth="3" Opacity="0.3"/>
     </Window.Resources>
 
-
-
     <Grid>
-
-        <TextBlock Text="Welcome"
-                   FontSize="36"
-                   FontWeight="Bold"
-                   HorizontalAlignment="Center"
-                   Margin="0,30,0,0"/>
-
-        <UniformGrid Rows="3" Columns="3" VerticalAlignment="Center">
-
-            <!-- LOGIN (plavi) -->
-            <Button Style="{StaticResource PrimaryCard}"
-                    Name="btnLogin"
-                    Content="Login"
-                    Click="LoginButton_Click"/>
-
-            <!-- REGISTRATION (plavi) -->
-            <Button Style="{StaticResource PrimaryCard}"
-                    Name="btnRegister"
-                    Content="Registration"
-                    Click="RegistrationButton_Click"/>
-
-            <!-- Ostali (beli) -->
-            <Button Style="{StaticResource CardButton}"
-                    Name="btnProfile"
-                    Content="Profile"
-                    Click="ProfileButton_Click"/>
-
-            <Button Style="{StaticResource CardButton}"
-                    Name="btnUsers"
-                    Content="Users"
-                    Click="UsersButton_Click"/>
-
-            <Button Style="{StaticResource CardButton}"
-                    Name="btnCalendar"
-                    Content="Calendar"
-                    Click="btnCalendar_Click"/>
-
-            <Button Style="{StaticResource CardButton}"
-                    Name="btnRequests"
-                    Content="Requests"
-                    Click="btnRequests_Click"/>
-
-            <Button Style="{StaticResource CardButton}"
-                    Name="btnLogOut"
-                    Content="Log Out"
-                    Click="btnLogOut_Click"/>
-
-        </UniformGrid>
-
+        <WrapPanel>
+            <Button Name="btnLogin" Content="Login" Click="LoginButton_Click" Style="{StaticResource MainButtonStyle}"/>
+            <Button Name="btnRegister" Content="Registration" Click="RegistrationButton_Click" Style="{StaticResource MainButtonStyle}"/>
+            <Button Name="btnProfile" Content="Profile" Click="ProfileButton_Click" Style="{StaticResource MainButtonStyle}"/>
+            <Button Name="btnUsers" Content="Users" Click="UsersButton_Click" Style="{StaticResource MainButtonStyle}"/>
+            <Button Name="btnCalendar" Content="Calendar" Click="btnCalendar_Click" Style="{StaticResource MainButtonStyle}"/>
+            <Button Name="btnRequests" Content="Requests" Click="btnRequests_Click" Style="{StaticResource MainButtonStyle}"/>
+            <Button Name="btnLogOut" Content="LogOut" Click="btnLogOut_Click" Style="{StaticResource MainButtonStyle}"/>
+        </WrapPanel>
     </Grid>
 </Window>
