@@ -41,6 +41,7 @@ SET reason = 'DayOff'
 WHERE reason = 'SLOBODAN_DAN';
 
 select * from Users;
+update Users set isDeleted = 0 where id = 1;
 Update Users set password = 'mika123' where id = 3;
 select * from Appointments;
 UPDATE Absences SET isDeleted = 1, isApproved = 0 WHERE id = 1002;

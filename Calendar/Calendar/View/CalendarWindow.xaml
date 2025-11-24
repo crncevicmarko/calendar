@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Calendar.Converters"
+        xmlns:local="clr-namespace:Calendar.View"
+        xmlns:converter="clr-namespace:Calendar.Converters"
         mc:Ignorable="d"
         Title="CalendarWindow" MinHeight="550" MinWidth="850">
 
@@ -28,6 +29,8 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
     </Window.Resources>
 
     <Grid>
@@ -69,19 +72,54 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Button Grid.Row="0" Content="Day" Width="60" Height="30" Margin="0,5,0,0" 
+
+                <!-- First row -> two columns -->
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" Content="Week" Width="60" Height="30" Margin="0,5,5,0"
+                        Command="{Binding WeekCommand}" Style="{StaticResource RoundedButton}"/>
+                    <Button Grid.Column="1" Content="Day" Width="60" Height="30" Margin="5,5,0,0"
                         Command="{Binding DayCommand}" Style="{StaticResource RoundedButton}"/>
-                <Label Grid.Row="1" Content="Saturday" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" FontWeight="SemiBold"/>
+                </Grid>
+
+                <!-- Second row -->
+                <Label Grid.Row="1"
+           Content="Saturday"
+           HorizontalContentAlignment="Center"
+           VerticalContentAlignment="Bottom"
+           FontWeight="SemiBold"/>
             </Grid>
+
         </Grid>
 
-        <ItemsControl Grid.Row="1" ItemsSource="{Binding Items}">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <UniformGrid Columns="7"/>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-        </ItemsControl>
+        <Grid Grid.Row="1">
+            <ContentControl>
+                <ContentControl.Style>
+                    <Style TargetType="ContentControl">
+                        <Setter Property="Content">
+                            <Setter.Value>
+                                <!-- Month view -->
+                                <ItemsControl x:Name="MonthViewControl" ItemsSource="{Binding Items}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <UniformGrid Columns="7"/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                </ItemsControl>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsWeekView}" Value="True">
+                                <Setter Property="Content" Value="{Binding CurrentWeekControl}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ContentControl.Style>
+            </ContentControl>
+        </Grid>
 
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>

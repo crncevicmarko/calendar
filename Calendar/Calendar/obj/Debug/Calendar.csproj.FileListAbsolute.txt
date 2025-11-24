@@ -125,3 +125,5 @@ C:\Users\crnce\Desktop\Calendar\calendar\Calendar\Calendar\bin\Debug\System.Thre
 C:\Users\crnce\Desktop\Calendar\calendar\Calendar\Calendar\obj\Debug\Calendar.csproj.CopyComplete
 C:\Users\crnce\Desktop\Calendar\calendar\Calendar\Calendar\obj\Debug\View\DayWindow.g.cs
 C:\Users\crnce\Desktop\Calendar\calendar\Calendar\Calendar\obj\Debug\View\DayWindow.baml
+C:\Users\crnce\Desktop\Calendar\calendar\Calendar\Calendar\obj\Debug\View\UserControlWeek.g.cs
+C:\Users\crnce\Desktop\Calendar\calendar\Calendar\Calendar\obj\Debug\View\UserControlWeek.baml

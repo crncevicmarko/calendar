@@ -88,6 +88,7 @@
       <DependentUpon>BindablePasswordBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Config.cs" />
+    <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Model\Absence.cs" />
     <Compile Include="Model\Appointment.cs" />
     <Compile Include="Model\Data.cs" />
@@ -112,6 +113,7 @@
     <Compile Include="ViewModel\RequestsWindowViewModel.cs" />
     <Compile Include="ViewModel\RequestWindowViewModel.cs" />
     <Compile Include="ViewModel\UserContorlDaysViewModel.cs" />
+    <Compile Include="ViewModel\UserControlWeeksViewModel.cs" />
     <Compile Include="ViewModel\UserProfileWindowViewModel.cs" />
     <Compile Include="ViewModel\UsersWindowViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
@@ -141,6 +143,9 @@
     </Compile>
     <Compile Include="View\UserControlDays.xaml.cs">
       <DependentUpon>UserControlDays.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControlWeek.xaml.cs">
+      <DependentUpon>UserControlWeek.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UserProfileWindow.xaml.cs">
       <DependentUpon>UserProfileWindow.xaml</DependentUpon>
@@ -189,6 +194,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UserControlDays.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControlWeek.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
